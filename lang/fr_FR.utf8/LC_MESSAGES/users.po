@@ -1,0 +1,322 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CmsUno\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-25 12:30+0100\n"
+"PO-Revision-Date: 2015-08-25 12:30+0100\n"
+"Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
+"Language-Team: Jacques Malgrange <contacter@boiteasite.fr>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-\tmsgstr-Bugs-To: \n"
+"Report-\t\tmsgstr-Bugs-To: \n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-SearchPath-0: ../../..\n"
+
+#: ../../../usersInc.php:16
+#: ../../../users.php:197
+msgid "Bad email format"
+msgstr "Mauvais format d'email"
+
+#: ../../../usersInc.php:28
+msgid "Name or email already assigned"
+msgstr "Login ou email déjà attribué"
+
+#: ../../../usersInc.php:36
+#: ../../../usersInc.php:108
+msgid "email blacklisted"
+msgstr "Email en liste noire"
+
+#: ../../../usersInc.php:55
+#: ../../../usersInc.php:220
+msgid "Welcome on"
+msgstr "Bienvenue sur"
+
+#: ../../../usersInc.php:56
+#: ../../../usersInc.php:221
+msgid "Your login is"
+msgstr "Votre login est"
+
+#: ../../../usersInc.php:57
+msgid "Your password is"
+msgstr "Votre mot de passe est"
+
+#: ../../../usersInc.php:60
+msgid "Registration"
+msgstr "S'inscrire"
+
+#: ../../../usersInc.php:77
+#: ../../../usersInc.php:242
+msgid "You will receive an email with your password"
+msgstr "Vous allez recevoir un email avec votre mot de passe"
+
+#: ../../../usersInc.php:83
+#: ../../../usersInc.php:115
+#: ../../../usersInc.php:140
+#: ../../../usersInc.php:167
+#: ../../../users.php:119
+#: ../../../users.php:163
+#: ../../../users.php:168
+#: ../../../users.php:189
+#: ../../../users.php:210
+msgid "Error"
+msgstr "Erreur"
+
+#: ../../../usersInc.php:112
+msgid "Unknown user"
+msgstr "Utilisateur inconnu"
+
+#: ../../../usersInc.php:132
+#: ../../../users.php:123
+msgid "User deleted"
+msgstr "membre supprimé"
+
+#: ../../../usersInc.php:148
+msgid "New passwords different"
+msgstr "Nouveaux mots de passe différents"
+
+#: ../../../usersInc.php:161
+msgid "Password changed"
+msgstr "Mot de passe changé"
+
+#: ../../../usersInc.php:196
+msgid "See you soon"
+msgstr "A bientôt"
+
+#: ../../../usersInc.php:222
+msgid "Your new password is"
+msgstr "Votre nouveau mot de passe est"
+
+#: ../../../usersInc.php:225
+msgid "Recover Password"
+msgstr "Récupérer le mot de passe"
+
+#: ../../../usersInc.php:250
+msgid "Unknown email"
+msgstr "Email inconnu"
+
+#: ../../../usersInc.php:268
+msgid "Email deleted"
+msgstr "Email effacé"
+
+#: ../../../users.php:19
+msgid "Edit Users in Blacklist"
+msgstr "Editer la liste des membres en liste noire"
+
+#: ../../../users.php:19
+msgid "Blacklist"
+msgstr "Liste noire"
+
+#: ../../../users.php:20
+msgid "Edit users list"
+msgstr "Editer la liste des membres"
+
+#: ../../../users.php:20
+#: ../../../users.php:88
+msgid "Users List"
+msgstr "List des membres"
+
+#: ../../../users.php:21
+msgid "Configure the plugin"
+msgstr "Configurer le plugin"
+
+#: ../../../users.php:21
+msgid "Config"
+msgstr "Configuration"
+
+#: ../../../users.php:22
+msgid "users"
+msgstr "users"
+
+#: ../../../users.php:25
+msgid "If you require that visitors are connected to access some features, this plugin is for you."
+msgstr "Si vous avez besoin de connecter vos utilisateurs pour accéder à certaines fonctions, ce plugin est pour vous."
+
+#: ../../../users.php:26
+msgid "It adds the login form and allows new members registration."
+msgstr "Il ajoute un formulaire de connexion et permet l'inscription de nouveaux membres."
+
+#: ../../../users.php:29
+msgid "Just add the shortcode"
+msgstr "Ajouter simplement le Shortcode"
+
+#: ../../../users.php:29
+msgid "in your template or in your page to display the login/registration link."
+msgstr "dans votre template ou dans votre page pour afficher le lien de connexion/inscription."
+
+#: ../../../users.php:31
+msgid "Settings"
+msgstr "Configuration"
+
+#: ../../../users.php:34
+msgid "Integration"
+msgstr "Intégration"
+
+#: ../../../users.php:37
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: ../../../users.php:38
+msgid "Menu"
+msgstr "Menu"
+
+#: ../../../users.php:41
+msgid "Use the shortcode [[users]] or use auto integration in the menu."
+msgstr "Utiliser le ShortCode [[users]] ou choisir une intégration automatique dans le menu."
+
+#: ../../../users.php:44
+msgid "Box alignment"
+msgstr "Alignement du formulaire"
+
+#: ../../../users.php:47
+msgid "Left"
+msgstr "Gauche"
+
+#: ../../../users.php:48
+msgid "Right"
+msgstr "Droite"
+
+#: ../../../users.php:51
+msgid "Use Right if the login appears to the right of the window."
+msgstr "Choisir Droite si le login est à droite de l'écran."
+
+#: ../../../users.php:54
+msgid "Box color"
+msgstr "Couleur du formulaire"
+
+#: ../../../users.php:56
+msgid "Background color for the dialog box. HTML format (ex : #9f9f9f). Leave blank for automatic choice."
+msgstr "Couleur de fond pour le formulaire. Format HTML (ex : #9f9f9f). Laisser vide pour un choix automatique."
+
+#: ../../../users.php:59
+msgid "Save settings"
+msgstr "Sauvegarde des paramètres"
+
+#: ../../../users.php:59
+#: ../../../users.php:82
+#: ../../../usersMake.php:66
+msgid "Save"
+msgstr "Enregistrer"
+
+#: ../../../users.php:63
+msgid "Add a new User"
+msgstr "Ajouter un nouveau membre"
+
+#: ../../../users.php:63
+msgid "New User"
+msgstr "Nouvel utilisateur"
+
+#: ../../../users.php:67
+msgid "Pseudo"
+msgstr "Pseudo"
+
+#: ../../../users.php:71
+msgid "Mail"
+msgstr "Mail"
+
+#: ../../../users.php:75
+#: ../../../usersMake.php:25
+msgid "Password"
+msgstr "Mot de passe"
+
+#: ../../../users.php:82
+msgid "Save this user"
+msgstr "Sauvegarder ce membre"
+
+#: ../../../users.php:92
+msgid "Users in Blacklist"
+msgstr "Membres en liste noire"
+
+#: ../../../users.php:124
+msgid "Undeletable"
+msgstr "Effacement impossible"
+
+#: ../../../users.php:128
+#: ../../../users.php:171
+msgid "No data"
+msgstr "Pas de données"
+
+#: ../../../users.php:167
+msgid "Done"
+msgstr "Effectué"
+
+#: ../../../users.php:187
+msgid "Saved"
+msgstr "Enregistré"
+
+#: ../../../users.php:208
+msgid "User added"
+msgstr "Membre ajouté"
+
+#: ../../../users.php:223
+#: ../../../users.php:240
+msgid "Already exist"
+msgstr "Existe déjà"
+
+#: ../../../usersMake.php:17
+#: ../../../usersMake.php:28
+msgid "Login"
+msgstr "Connexion"
+
+#: ../../../usersMake.php:18
+msgid "Hello"
+msgstr "Bonjour"
+
+#: ../../../usersMake.php:23
+msgid "Username or email"
+msgstr "Pseudo ou email"
+
+#: ../../../usersMake.php:30
+msgid "Forgot your password"
+msgstr "Mot de passe oublié"
+
+#: ../../../usersMake.php:31
+#: ../../../usersMake.php:41
+msgid "Register"
+msgstr "S'inscrire"
+
+#: ../../../usersMake.php:36
+#: ../../../usersMake.php:45
+msgid "Email"
+msgstr "Email"
+
+#: ../../../usersMake.php:38
+msgid "Username"
+msgstr "Pseudo"
+
+#: ../../../usersMake.php:48
+msgid "Recover"
+msgstr "Récupérer"
+
+#: ../../../usersMake.php:52
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: ../../../usersMake.php:53
+msgid "Change Password"
+msgstr "Changer le mot de passe"
+
+#: ../../../usersMake.php:54
+msgid "Unsubscribe"
+msgstr "Désinscription"
+
+#: ../../../usersMake.php:59
+msgid "Current Password"
+msgstr "Mot de passe actuel"
+
+#: ../../../usersMake.php:61
+msgid "New Password"
+msgstr "Nouveau mot de passe"
+
+#: ../../../usersMake.php:63
+msgid "New Password again"
+msgstr "Nouveau mot de passe"
+
+#~ msgid "Subscribe users"
+#~ msgstr "Inscription"

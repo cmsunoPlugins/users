@@ -1,0 +1,9 @@
+.userTab table{margin:10px;}
+.usersList table td{vertical-align:middle;padding:2px;}
+.userTab table td:nth-child(1){padding-right:20px;color:#0074cc;cursor:pointer;}
+.userTab table td:nth-child(3){padding-right:30px;padding-left:30px;}
+.userTab .del{padding-left:30px;width:16px;height:16px;background-image:url("img/close.png");background-repeat:no-repeat;background-position:center center;cursor:pointer;}
+.userTab .free{width:16px;height:16px;background-image:url("img/free.png");background-repeat:no-repeat;background-position:center center;cursor:pointer;}
+.userTab .jail{width:16px;height:16px;background-image:url("img/jail.png");background-repeat:no-repeat;background-position:center center;cursor:pointer;}
+.usersList table td input{margin-left:10px;}
+#checkE, #checkN{font-size:90%;color:red;padding-left:5px;}
