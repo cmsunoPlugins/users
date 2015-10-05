@@ -26,3 +26,5 @@ u::::::::::::::u  n::::n    n::::n  o:::::ooooo:::::o
 Create a members area with login / registration dropdown form.
 Integration with a shortcode or directly inside the menu.
 Login with Ajax and PHP session.
+
+[CMSUno](https://github.com/boiteasite/cmsuno)
