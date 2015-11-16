@@ -68,6 +68,7 @@ function f_load_users(){
 				jQuery('#usersBL').empty();
 				document.getElementById('usersBL').appendChild(t);
 			}
+		jQuery('#usersConfig .color').colorPicker();
 		}});
 	});
 }
@@ -140,6 +141,10 @@ function f_timeConvert(Timestamp){
 	var min=a.getMinutes();
 	var t=date+' '+month+' '+year+' '+hour+':'+min;
 	return t;
+}
+function f_del_usersColor(f){
+	var g=f.parentNode.firstChild;
+	jQuery(g).parent().empty().append('<input type="text" class="input color" name="usersCol" id="usersCol" style="width:100px;" /><span class="del" onclick="f_del_usersColor(this);"></span>');
 }
 //
 f_load_users();

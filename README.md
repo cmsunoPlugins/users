@@ -21,10 +21,15 @@ u::::::::::::::u  n::::n    n::::n  o:::::ooooo:::::o
      \____/           \/    \/            \__/
 </pre>
 
-### Users ###
+## Users ##
 
 Create a members area with login / registration dropdown form.
 Integration with a shortcode or directly inside the menu.
 Login with Ajax and PHP session.
 
 [CMSUno](https://github.com/boiteasite/cmsuno)
+
+### Versions ###
+
+* 1.0.1 - 16/11/2015 : ColorPicker
+* 1.0 - 05/10/2015 : First stable version

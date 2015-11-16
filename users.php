@@ -15,6 +15,9 @@ if (isset($_POST['action']))
 		// ********************************************************************************************
 		case 'plugin': ?>
 		<link rel="stylesheet" type="text/css" media="screen" href="uno/plugins/users/users.css" />
+		<style>
+		.del{background:transparent url(<?php echo $_POST['udep']; ?>includes/img/close.png) no-repeat center center;cursor:pointer;padding:0 20px;margin-left:10px}
+		</style>
 		<div class="blocForm">
 			<div id="usersB" class="bouton fr" onClick="f_black_users();" title="<?php echo _("Edit Users in Blacklist");?>"><?php echo _("Blacklist");?></div>
 			<div id="usersL" class="bouton fr" onClick="f_list_users();" title="<?php echo _("Edit users list");?>"><?php echo _("Users List");?></div>
@@ -52,7 +55,7 @@ if (isset($_POST['action']))
 					</tr>
 					<tr>
 						<td><label><?php echo _("Box color");?></label></td>
-						<td><input type="text" class="input" name="usersCol" id="usersCol" style="width:50px;" /></td>
+						<td><input type="text" class="input color" name="usersCol" id="usersCol" style="width:100px;" /><span class="del" onclick="f_del_usersColor(this);"></span></td>
 						<td><em><?php echo _("Background color for the dialog box. HTML format (ex : #9f9f9f). Leave blank for automatic choice.");?></em></td>
 					</tr>
 				</table>
