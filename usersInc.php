@@ -13,7 +13,7 @@ if (isset($_POST['a']))
 			{
 			if(!filter_var(strip_tags($_POST['e']),FILTER_VALIDATE_EMAIL))
 				{
-				echo '!'._("Bad email format");
+				echo '!'.T_("Bad email format");
 				break;
 				}
 			if(!file_exists('../../data/_sdata-'.$sdata.'/users.json')) $a=array();
@@ -25,7 +25,7 @@ if (isset($_POST['a']))
 					{
 					if(strip_tags($_POST['e']==$r['e']) || strip_tags($_POST['u']==$r['n']))
 						{
-						echo '!'._("Name or email already assigned");
+						echo '!'.T_("Name or email already assigned");
 						die();
 						}
 					}
@@ -33,7 +33,7 @@ if (isset($_POST['a']))
 					{
 					if(strip_tags($_POST['e']==$r['e']))
 						{
-						echo '!'._("email blacklisted");
+						echo '!'.T_("email blacklisted");
 						die();
 						}
 					}
@@ -52,12 +52,12 @@ if (isset($_POST['a']))
 					$a = json_decode($q,true);
 					$rn = "\r\n";
 					$boundary = "-----=".md5(rand());
-					$body = _("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
-					$body .= _("Your login is").": <b>".strip_tags($_POST['u'])."</b><br />".$rn;
-					$body .= _("Your password is").": <b>".$pass."</b><br />".$rn;
+					$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
+					$body .= T_("Your login is").": <b>".strip_tags($_POST['u'])."</b><br />".$rn;
+					$body .= T_("Your password is").": <b>".$pass."</b><br />".$rn;
 					$msgT = strip_tags($body);
 					$msgH = $top . $body . $bottom;
-					$sujet = $a['tit'].' - '. _("Registration");
+					$sujet = $a['tit'].' - '. T_("Registration");
 					$fm = preg_replace("/[^a-zA-Z ]+/", "", $a['tit']);
 					$header  = "From: ".$fm."<".$b['mel'].">".$rn."Reply-To:".$fm."<".$b['mel'].">";
 					$header.= "MIME-Version: 1.0".$rn;
@@ -74,13 +74,13 @@ if (isset($_POST['a']))
 					$msg.= $rn."--".$boundary."--".$rn;
 					if(mail(strip_tags($_POST['e']), stripslashes($sujet), stripslashes($msg),$header))
 						{
-						echo _("You will receive an email with your password");
+						echo T_("You will receive an email with your password");
 						break;
 						}
 					}
 				}
 			}
-		echo '!'._("Error");
+		echo '!'.T_("Error");
 		break;
 		// ********************************************************************************************
 		case 'log':
@@ -105,14 +105,14 @@ if (isset($_POST['a']))
 				{
 				if($r['e']==$_POST['n'] || $r['n']==$_POST['n'])
 					{
-					echo '|!'._("email blacklisted");
+					echo '|!'.T_("email blacklisted");
 					die();
 					}
 				}
-			echo '|!'._("Unknown user");
+			echo '|!'.T_("Unknown user");
 			break;
 			}
-		else echo '|!'._("Error");
+		else echo '|!'.T_("Error");
 		break;
 		// ********************************************************************************************
 		case 'unsub':
@@ -129,7 +129,7 @@ if (isset($_POST['a']))
 					$out = json_encode($a);
 					if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
 						{
-						echo _("User deleted");
+						echo T_("User deleted");
 						$_SESSION = array();
 						session_destroy();
 						die();
@@ -137,7 +137,7 @@ if (isset($_POST['a']))
 					}
 				}
 			}
-		echo '!'._("Error");
+		echo '!'.T_("Error");
 		break;
 		// ********************************************************************************************
 		case 'pass':
@@ -145,7 +145,7 @@ if (isset($_POST['a']))
 			{
 			if($_POST['n']!=$_POST['g'])
 				{
-				echo '!'._("New passwords different");
+				echo '!'.T_("New passwords different");
 				break;
 				}
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
@@ -158,13 +158,13 @@ if (isset($_POST['a']))
 					$out = json_encode($a);
 					if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
 						{
-						echo _("Password changed");
+						echo T_("Password changed");
 						die();
 						}
 					}
 				}
 			}
-		echo '!'._("Error");
+		echo '!'.T_("Error");
 		break;
 		// ********************************************************************************************
 		case 'check':
@@ -193,7 +193,7 @@ if (isset($_POST['a']))
 		session_start();
 		$_SESSION = array();
 		session_destroy();
-		echo _("See you soon");
+		echo T_("See you soon");
 		break;
 		// ********************************************************************************************
 		case 'rec':
@@ -217,12 +217,12 @@ if (isset($_POST['a']))
 						$a = json_decode($q,true);
 						$rn = "\r\n";
 						$boundary = "-----=".md5(rand());
-						$body = _("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
-						$body .= _("Your login is").": <b>".$r['n']."</b><br />".$rn;
-						$body .= _("Your new password is").": <b>".$pass."</b><br />".$rn;
+						$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
+						$body .= T_("Your login is").": <b>".$r['n']."</b><br />".$rn;
+						$body .= T_("Your new password is").": <b>".$pass."</b><br />".$rn;
 						$msgT = strip_tags($body);
 						$msgH = $top . $body . $bottom;
-						$sujet = $a['tit'].' - '. _("Recover Password");
+						$sujet = $a['tit'].' - '. T_("Recover Password");
 						$fm = preg_replace("/[^a-zA-Z ]+/", "", $a['tit']);
 						$header  = "From: ".$fm."<".$b['mel'].">".$rn."Reply-To:".$fm."<".$b['mel'].">";
 						$header.= "MIME-Version: 1.0".$rn;
@@ -239,7 +239,7 @@ if (isset($_POST['a']))
 						$msg.= $rn."--".$boundary."--".$rn;
 						if(mail(strip_tags($_POST['e']), stripslashes($sujet), stripslashes($msg),$header))
 							{
-							echo _("You will receive an email with your password");
+							echo T_("You will receive an email with your password");
 							die();
 							}
 						}
@@ -247,7 +247,7 @@ if (isset($_POST['a']))
 					}
 				}
 			}
-		echo '!'._("Unknown email");
+		echo '!'.T_("Unknown email");
 		break;
 		// ********************************************************************************************
 		case 'del':
@@ -265,7 +265,7 @@ if (isset($_POST['a']))
 				if(file_put_contents('../../data/_sdata-'.$sdata.'/'.$Ubusy.'/users.json', $out))
 					{
 					echo "<script language='JavaScript'>setTimeout(function(){document.location.href='".strip_tags($_GET['b'])."';},2000);</script>";
-					echo "<html><head><meta charset='utf-8'></head><body><h3 style='text-align:center;margin-top:50px;'>"._('Email deleted')."</h3></body></html>";
+					echo "<html><head><meta charset='utf-8'></head><body><h3 style='text-align:center;margin-top:50px;'>".T_('Email deleted')."</h3></body></html>";
 					break;
 					}
 				}

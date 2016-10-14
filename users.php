@@ -19,80 +19,80 @@ if (isset($_POST['action']))
 		.del{background:transparent url(<?php echo $_POST['udep']; ?>includes/img/close.png) no-repeat center center;cursor:pointer;padding:0 20px;margin-left:10px}
 		</style>
 		<div class="blocForm">
-			<div id="usersB" class="bouton fr" onClick="f_black_users();" title="<?php echo _("Edit Users in Blacklist");?>"><?php echo _("Blacklist");?></div>
-			<div id="usersL" class="bouton fr" onClick="f_list_users();" title="<?php echo _("Edit users list");?>"><?php echo _("Users List");?></div>
-			<div id="usersC" class="bouton fr current" onClick="f_config_users();" title="<?php echo _("Configure the plugin");?>"><?php echo _("Config");?></div>
-			<h2><?php echo _("users");?></h2>
+			<div id="usersB" class="bouton fr" onClick="f_black_users();" title="<?php echo T_("Edit Users in Blacklist");?>"><?php echo T_("Blacklist");?></div>
+			<div id="usersL" class="bouton fr" onClick="f_list_users();" title="<?php echo T_("Edit users list");?>"><?php echo T_("Users List");?></div>
+			<div id="usersC" class="bouton fr current" onClick="f_config_users();" title="<?php echo T_("Configure the plugin");?>"><?php echo T_("Config");?></div>
+			<h2><?php echo T_("users");?></h2>
 			<div id="usersConfig">
 				<p>
-					<?php echo _("If you require that visitors are connected to access some features, this plugin is for you.")." ";?>
-					<?php echo _("It adds the login form and allows new members registration.");?>
+					<?php echo T_("If you require that visitors are connected to access some features, this plugin is for you.")." ";?>
+					<?php echo T_("It adds the login form and allows new members registration.");?>
 				</p>
 				<p>
-					<?php echo _("Just add the shortcode");?>&nbsp;<code>[[users]]</code>&nbsp;<?php echo _("in your template or in your page to display the login/registration link.")." ";?>
+					<?php echo T_("Just add the shortcode");?>&nbsp;<code>[[users]]</code>&nbsp;<?php echo T_("in your template or in your page to display the login/registration link.")." ";?>
 				</p>
-				<h3><?php echo _("Settings");?></h3>
+				<h3><?php echo T_("Settings");?></h3>
 				<table class="hForm">
 					<tr>
-						<td><label><?php echo _("Integration");?></label></td>
+						<td><label><?php echo T_("Integration");?></label></td>
 						<td>
 							<select name="usersInt" id="usersInt">
-								<option value="shortcode"><?php echo _("Shortcode");?></option>
-								<option value="menu"><?php echo _("Menu");?></option>
+								<option value="shortcode"><?php echo T_("Shortcode");?></option>
+								<option value="menu"><?php echo T_("Menu");?></option>
 							</select>
 						</td>
-						<td><em><?php echo _("Use the shortcode [[users]] or use auto integration in the menu.");?></em></td>
+						<td><em><?php echo T_("Use the shortcode [[users]] or use auto integration in the menu.");?></em></td>
 					</tr>
 					<tr>
-						<td><label><?php echo _("Box alignment");?></label></td>
+						<td><label><?php echo T_("Box alignment");?></label></td>
 						<td>
 							<select name="usersAli" id="usersAli">
-								<option value="left"><?php echo _("Left");?></option>
-								<option value="right"><?php echo _("Right");?></option>
+								<option value="left"><?php echo T_("Left");?></option>
+								<option value="right"><?php echo T_("Right");?></option>
 							</select>
 						</td>
-						<td><em><?php echo _("Use Right if the login appears to the right of the window.");?></em></td>
+						<td><em><?php echo T_("Use Right if the login appears to the right of the window.");?></em></td>
 					</tr>
 					<tr>
-						<td><label><?php echo _("Box color");?></label></td>
+						<td><label><?php echo T_("Box color");?></label></td>
 						<td><input type="text" class="input color" name="usersCol" id="usersCol" style="width:100px;" /><span class="del" onclick="f_del_usersColor(this);"></span></td>
-						<td><em><?php echo _("Background color for the dialog box. HTML format (ex : #9f9f9f). Leave blank for automatic choice.");?></em></td>
+						<td><em><?php echo T_("Background color for the dialog box. HTML format (ex : #9f9f9f). Leave blank for automatic choice.");?></em></td>
 					</tr>
 				</table>
-				<div class="bouton fr" onClick="f_saveConfig_users();" title="<?php echo _("Save settings");?>"><?php echo _("Save");?></div>
+				<div class="bouton fr" onClick="f_saveConfig_users();" title="<?php echo T_("Save settings");?>"><?php echo T_("Save");?></div>
 				<div class="clear"></div>
 			</div>
 			<div id="usersList" class="usersList" style="display:none;">
-				<div class="bouton" onClick="f_new_users();" title="<?php echo _("Add a new User");?>"><?php echo _("New User");?></div>
+				<div class="bouton" onClick="f_new_users();" title="<?php echo T_("Add a new User");?>"><?php echo T_("New User");?></div>
 				<div id="usersEdit" style="display:none;">
 					<table>
 						<tr>
-							<td><label><?php echo _("Pseudo");?></label></td>
+							<td><label><?php echo T_("Pseudo");?></label></td>
 							<td><input name="usersEditN" id="usersEditN" size="20" type="text" onkeyup="f_checkN(this.value)" /><span id="checkN"></span></td>
 						</tr>
 						<tr>
-							<td><label><?php echo _("Mail");?></label></td>
+							<td><label><?php echo T_("Mail");?></label></td>
 							<td><input name="usersEditE" id="usersEditE" size="20" type="text" onkeyup="f_checkE(this.value)" /><span id="checkE"></span></td>
 						</tr>
 						<tr>
-							<td><label><?php echo _("Password");?></label></td>
+							<td><label><?php echo T_("Password");?></label></td>
 							<td>
 								<input name="usersEditP" id="usersEditP" size="20" type="password" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<div id="usersSave" class="bouton" onClick="f_save_users();" title="<?php echo _("Save this user");?>"><?php echo _("Save");?></div>
+								<div id="usersSave" class="bouton" onClick="f_save_users();" title="<?php echo T_("Save this user");?>"><?php echo T_("Save");?></div>
 							</td>
 							<td></td>
 						</tr>
 					</table>
 				</div>
-				<h3><?php echo _("Users List");?></h3>
+				<h3><?php echo T_("Users List");?></h3>
 				<div id="usersML" class="userTab"></div>
 			</div>
 			<div id="usersBlack" style="display:none;">
-				<h3><?php echo _("Users in Blacklist");?></h3>
+				<h3><?php echo T_("Users in Blacklist");?></h3>
 				<div id="usersBL" class="userTab"></div>
 			</div>
 			<div class="clear"></div>
@@ -119,16 +119,16 @@ if (isset($_POST['action']))
 			if(isset($a['user']))
 				{
 				foreach($a['user'] as $k=>$v) { if($v['n']==$l) {unset($a['user'][$k]); $b = 1; }}
-				if($b==0) echo '!'._('Error');
+				if($b==0) echo '!'.T_('Error');
 				else
 					{
 					$out = json_encode($a);
-					if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo _('User deleted');
-					else echo '!'._('Undeletable');
+					if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('User deleted');
+					else echo '!'.T_('Undeletable');
 					}
 				}
 			}
-		else echo '!'._('No data');
+		else echo '!'.T_('No data');
 		break;
 		// ********************************************************************************************
 		case 'black':
@@ -163,15 +163,15 @@ if (isset($_POST['action']))
 						}
 					}
 				}
-			if($b==0) echo '!'._('Error');
+			if($b==0) echo '!'.T_('Error');
 			else
 				{
 				$out = json_encode($a);
-				if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo _('Done');
-				else echo '!'._('Error');
+				if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('Done');
+				else echo '!'.T_('Error');
 				}
 			}
-		else echo '!'._('No data');
+		else echo '!'.T_('No data');
 		break;
 		// ********************************************************************************************
 		case 'saveConfig':
@@ -187,9 +187,9 @@ if (isset($_POST['action']))
 			$a['a'] = strip_tags($_POST['a']);
 			$a['c'] = strip_tags($_POST['c']);
 			$out = json_encode($a);
-			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo _('Saved');
+			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('Saved');
 			}
-		else echo '!'._('Error');
+		else echo '!'.T_('Error');
 		break;
 		// ********************************************************************************************
 		case 'saveUser':
@@ -197,7 +197,7 @@ if (isset($_POST['action']))
 			{
 			if(!filter_var(strip_tags($_POST['e']),FILTER_VALIDATE_EMAIL))
 				{
-				echo '!'._("Bad email format");
+				echo '!'.T_("Bad email format");
 				break;
 				}
 			if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
@@ -208,9 +208,9 @@ if (isset($_POST['action']))
 			else $a = array();
 			$a['user'][strip_tags($_POST['n'])] = array("e"=>strip_tags($_POST['e']), "n"=>strip_tags($_POST['n']), "p"=>crypt($_POST['p']), "s"=>time());
 			$out = json_encode($a);
-			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo _('User added');
+			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('User added');
 			}
-		else echo '!'._('Error');
+		else echo '!'.T_('Error');
 		break;
 		// ********************************************************************************************
 		case 'checkN':
@@ -223,7 +223,7 @@ if (isset($_POST['action']))
 				{
 				foreach($a['user'] as $k=>$v)
 					{
-					if($v['n']==$l) { echo _('Already exist'); die(); }
+					if($v['n']==$l) { echo T_('Already exist'); die(); }
 					}
 				}
 			}
@@ -240,7 +240,7 @@ if (isset($_POST['action']))
 				{
 				foreach($a['user'] as $k=>$v)
 					{
-					if($v['e']==$l) { echo _('Already exist'); die(); }
+					if($v['e']==$l) { echo T_('Already exist'); die(); }
 					}
 				}
 			}
