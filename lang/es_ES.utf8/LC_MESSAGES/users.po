@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CmsUno\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 12:19+0100\n"
-"PO-Revision-Date: 2015-08-25 12:19+0100\n"
+"POT-Creation-Date: 2017-02-04 17:34+0100\n"
+"PO-Revision-Date: 2017-02-04 17:34+0100\n"
 "Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
 "Language-Team: Jacques Malgrange <contacter@boiteasite.fr>\n"
 "Language: \n"
@@ -12,72 +12,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Report-\tmsgstr-Bugs-To: \n"
 "Report-\t\tmsgstr-Bugs-To: \n"
-"X-Poedit-KeywordsList: _\n"
+"X-Poedit-KeywordsList: _;T_\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-SearchPath-0: ../../..\n"
 
-#: ../../../usersInc.php:16
-#: ../../../users.php:197
+#: ../../../usersInc.php:23
+#: ../../../users.php:213
 msgid "Bad email format"
 msgstr "Formato de email Mala"
 
 #: ../../../usersInc.php:28
+msgid "Bad name format"
+msgstr "Nombre no es bueno"
+
+#: ../../../usersInc.php:35
 msgid "Name or email already assigned"
 msgstr "Nombre o email ya asignados"
 
-#: ../../../usersInc.php:36
-#: ../../../usersInc.php:108
+#: ../../../usersInc.php:43
+#: ../../../usersInc.php:112
 msgid "email blacklisted"
 msgstr "email en la lista negra"
 
-#: ../../../usersInc.php:55
-#: ../../../usersInc.php:220
+#: ../../../usersInc.php:61
+#: ../../../usersInc.php:216
 msgid "Welcome on"
 msgstr "Bienvenido a"
 
-#: ../../../usersInc.php:56
-#: ../../../usersInc.php:221
+#: ../../../usersInc.php:62
+#: ../../../usersInc.php:217
 msgid "Your login is"
 msgstr "Su nombre de usuario es"
 
-#: ../../../usersInc.php:57
+#: ../../../usersInc.php:63
 msgid "Your password is"
 msgstr "Su contraseña es"
 
-#: ../../../usersInc.php:60
+#: ../../../usersInc.php:66
 msgid "Registration"
 msgstr "Inscripción"
 
-#: ../../../usersInc.php:77
-#: ../../../usersInc.php:242
+#: ../../../usersInc.php:83
+#: ../../../usersInc.php:238
 msgid "You will receive an email with your password"
 msgstr "Usted recibirá un email con su contraseña"
 
-#: ../../../usersInc.php:83
-#: ../../../usersInc.php:115
-#: ../../../usersInc.php:140
+#: ../../../usersInc.php:89
+#: ../../../usersInc.php:119
+#: ../../../usersInc.php:142
 #: ../../../usersInc.php:167
-#: ../../../users.php:119
-#: ../../../users.php:163
-#: ../../../users.php:168
-#: ../../../users.php:189
-#: ../../../users.php:210
+#: ../../../users.php:134
+#: ../../../users.php:178
+#: ../../../users.php:183
+#: ../../../users.php:205
+#: ../../../users.php:226
 msgid "Error"
 msgstr "Error"
 
-#: ../../../usersInc.php:112
+#: ../../../usersInc.php:116
 msgid "Unknown user"
 msgstr "Usuario desconocido"
 
-#: ../../../usersInc.php:132
-#: ../../../users.php:123
+#: ../../../usersInc.php:134
+#: ../../../users.php:138
 msgid "User deleted"
 msgstr "usuario eliminado"
 
-#: ../../../usersInc.php:148
+#: ../../../usersInc.php:150
 msgid "New passwords different"
 msgstr "Las nuevas contraseñas diferentes"
 
@@ -85,236 +89,260 @@ msgstr "Las nuevas contraseñas diferentes"
 msgid "Password changed"
 msgstr "Contraseña cambiada"
 
-#: ../../../usersInc.php:196
+#: ../../../usersInc.php:194
 msgid "See you soon"
 msgstr "Hasta pronto"
 
-#: ../../../usersInc.php:222
+#: ../../../usersInc.php:218
 msgid "Your new password is"
 msgstr "Su nueva contraseña es"
 
-#: ../../../usersInc.php:225
+#: ../../../usersInc.php:221
 msgid "Recover Password"
 msgstr "Recuperar contraseña"
 
-#: ../../../usersInc.php:250
+#: ../../../usersInc.php:246
 msgid "Unknown email"
 msgstr "Desconocido email"
 
-#: ../../../usersInc.php:268
+#: ../../../usersInc.php:262
 msgid "Email deleted"
 msgstr "Correo eliminado"
 
-#: ../../../users.php:19
+#: ../../../users.php:22
 msgid "Edit Users in Blacklist"
 msgstr "Editar Usuarios en lista negra"
 
-#: ../../../users.php:19
+#: ../../../users.php:22
 msgid "Blacklist"
 msgstr "Lista negra"
 
-#: ../../../users.php:20
+#: ../../../users.php:23
 msgid "Edit users list"
 msgstr "Editar lista de usuarios"
 
-#: ../../../users.php:20
-#: ../../../users.php:88
+#: ../../../users.php:23
+#: ../../../users.php:103
 msgid "Users List"
 msgstr "Lista de Usuarios"
 
-#: ../../../users.php:21
+#: ../../../users.php:24
 msgid "Configure the plugin"
 msgstr "Configurar el plugin"
 
-#: ../../../users.php:21
+#: ../../../users.php:24
 msgid "Config"
 msgstr "Configurar"
 
-#: ../../../users.php:22
+#: ../../../users.php:25
 msgid "users"
 msgstr "usuarios"
 
-#: ../../../users.php:25
+#: ../../../users.php:28
 msgid "If you require that visitors are connected to access some features, this plugin is for you."
 msgstr "Si usted requiere que los visitantes se conectan a acceder a algunas funciones, este plugin es para usted."
 
-#: ../../../users.php:26
+#: ../../../users.php:29
 msgid "It adds the login form and allows new members registration."
 msgstr "Agrega el formulario de acceso y permite a los nuevos miembros de registro."
 
-#: ../../../users.php:29
+#: ../../../users.php:32
 msgid "Just add the shortcode"
 msgstr "Sólo tiene que añadir el shortcode"
 
-#: ../../../users.php:29
+#: ../../../users.php:32
 msgid "in your template or in your page to display the login/registration link."
 msgstr "en su template o en su página para mostrar el enlace de conexión/registro."
 
-#: ../../../users.php:31
+#: ../../../users.php:34
 msgid "Settings"
 msgstr "Ajustes"
 
-#: ../../../users.php:34
+#: ../../../users.php:37
+msgid "Lang"
+msgstr "Idioma"
+
+#: ../../../users.php:40
+msgid "Current language"
+msgstr "Idioma actual"
+
+#: ../../../users.php:41
+msgid "English"
+msgstr "Inglés"
+
+#: ../../../users.php:42
+msgid "French"
+msgstr "Francés"
+
+#: ../../../users.php:43
+msgid "Spanish"
+msgstr "Español"
+
+#: ../../../users.php:46
+msgid "Select the language to use in the Registration / Connection Form."
+msgstr "Seleccione el idioma que desea utilizar en el Formulario de registro / conexión."
+
+#: ../../../users.php:49
 msgid "Integration"
 msgstr "Integración"
 
-#: ../../../users.php:37
+#: ../../../users.php:52
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: ../../../users.php:38
+#: ../../../users.php:53
 msgid "Menu"
 msgstr "Menú"
 
-#: ../../../users.php:41
+#: ../../../users.php:56
 msgid "Use the shortcode [[users]] or use auto integration in the menu."
 msgstr "Utilice el código abreviado [[users]] o utilizar la integración automática en el menú."
 
-#: ../../../users.php:44
+#: ../../../users.php:59
 msgid "Box alignment"
 msgstr "Alineación de la caja"
 
-#: ../../../users.php:47
+#: ../../../users.php:62
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../../../users.php:48
+#: ../../../users.php:63
 msgid "Right"
 msgstr "Derecho"
 
-#: ../../../users.php:51
+#: ../../../users.php:66
 msgid "Use Right if the login appears to the right of the window."
 msgstr "Utilice derecho si el inicio de sesión aparece a la derecha de la ventana."
 
-#: ../../../users.php:54
+#: ../../../users.php:69
 msgid "Box color"
 msgstr "color de la caja"
 
-#: ../../../users.php:56
+#: ../../../users.php:71
 msgid "Background color for the dialog box. HTML format (ex : #9f9f9f). Leave blank for automatic choice."
 msgstr "Color de fondo de la caja de diálogo. Formato HTML (ejemplo: #9f9f9f). Dejar en blanco para la opción automática."
 
-#: ../../../users.php:59
+#: ../../../users.php:74
 msgid "Save settings"
 msgstr "Guardar ajustes"
 
-#: ../../../users.php:59
-#: ../../../users.php:82
-#: ../../../usersMake.php:66
+#: ../../../users.php:74
+#: ../../../users.php:97
+#: ../../../usersMake.php:68
 msgid "Save"
 msgstr "Guardar"
 
-#: ../../../users.php:63
+#: ../../../users.php:78
 msgid "Add a new User"
 msgstr "Añadir un nuevo usuario"
 
-#: ../../../users.php:63
+#: ../../../users.php:78
 msgid "New User"
 msgstr "Nuevo usuario"
 
-#: ../../../users.php:67
+#: ../../../users.php:82
 msgid "Pseudo"
 msgstr "Pseudo"
 
-#: ../../../users.php:71
+#: ../../../users.php:86
 msgid "Mail"
 msgstr "Mail"
 
-#: ../../../users.php:75
-#: ../../../usersMake.php:25
+#: ../../../users.php:90
+#: ../../../usersMake.php:27
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../../../users.php:82
+#: ../../../users.php:97
 msgid "Save this user"
 msgstr "Guarde este usuario"
 
-#: ../../../users.php:92
+#: ../../../users.php:107
 msgid "Users in Blacklist"
 msgstr "Usuarios en lista negra"
 
-#: ../../../users.php:124
+#: ../../../users.php:139
 msgid "Undeletable"
 msgstr "No se puede eliminar"
 
-#: ../../../users.php:128
-#: ../../../users.php:171
+#: ../../../users.php:143
+#: ../../../users.php:186
 msgid "No data"
 msgstr "Sin datos"
 
-#: ../../../users.php:167
+#: ../../../users.php:182
 msgid "Done"
 msgstr "Hecho"
 
-#: ../../../users.php:187
+#: ../../../users.php:203
 msgid "Saved"
 msgstr "Guardado"
 
-#: ../../../users.php:208
+#: ../../../users.php:224
 msgid "User added"
 msgstr "Usuario Añadido"
 
-#: ../../../users.php:223
-#: ../../../users.php:240
+#: ../../../users.php:239
+#: ../../../users.php:256
 msgid "Already exist"
 msgstr "Ya existe"
 
-#: ../../../usersMake.php:17
-#: ../../../usersMake.php:28
+#: ../../../usersMake.php:19
+#: ../../../usersMake.php:30
 msgid "Login"
 msgstr "Entrar"
 
-#: ../../../usersMake.php:18
+#: ../../../usersMake.php:20
 msgid "Hello"
 msgstr "Hola"
 
-#: ../../../usersMake.php:23
+#: ../../../usersMake.php:25
 msgid "Username or email"
 msgstr "Nombre de usuario o email"
 
-#: ../../../usersMake.php:30
+#: ../../../usersMake.php:32
 msgid "Forgot your password"
 msgstr "Olvidaste tu contraseña"
 
-#: ../../../usersMake.php:31
-#: ../../../usersMake.php:41
+#: ../../../usersMake.php:33
+#: ../../../usersMake.php:43
 msgid "Register"
 msgstr "Registro"
 
-#: ../../../usersMake.php:36
-#: ../../../usersMake.php:45
+#: ../../../usersMake.php:38
+#: ../../../usersMake.php:47
 msgid "Email"
 msgstr "Email"
 
-#: ../../../usersMake.php:38
+#: ../../../usersMake.php:40
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: ../../../usersMake.php:48
+#: ../../../usersMake.php:50
 msgid "Recover"
 msgstr "Recuperar"
 
-#: ../../../usersMake.php:52
+#: ../../../usersMake.php:54
 msgid "Logout"
 msgstr "Salir"
 
-#: ../../../usersMake.php:53
+#: ../../../usersMake.php:55
 msgid "Change Password"
 msgstr "Cambiar la contraseña"
 
-#: ../../../usersMake.php:54
+#: ../../../usersMake.php:56
 msgid "Unsubscribe"
 msgstr "Borrarse"
 
-#: ../../../usersMake.php:59
+#: ../../../usersMake.php:61
 msgid "Current Password"
 msgstr "Contraseña actual"
 
-#: ../../../usersMake.php:61
+#: ../../../usersMake.php:63
 msgid "New Password"
 msgstr "Nueva contraseña"
 
-#: ../../../usersMake.php:63
+#: ../../../usersMake.php:65
 msgid "New Password again"
 msgstr "Nueva contraseña de nuevo"
 

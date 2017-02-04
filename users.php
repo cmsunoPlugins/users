@@ -34,6 +34,18 @@ if (isset($_POST['action']))
 				<h3><?php echo T_("Settings");?></h3>
 				<table class="hForm">
 					<tr>
+						<td><label><?php echo T_("Lang");?></label></td>
+						<td>
+							<select name="usersLang" id="usersLang">
+								<option value=""><?php echo T_("Current language").' ('.$lang.')';?></option>
+								<option value="en"><?php echo T_("English");?></option>
+								<option value="fr"><?php echo T_("French");?></option>
+								<option value="es"><?php echo T_("Spanish");?></option>
+							</select>
+						</td>
+						<td><em><?php echo T_("Select the language to use in the Registration / Connection Form.");?></em></td>
+					</tr>
+					<tr>
 						<td><label><?php echo T_("Integration");?></label></td>
 						<td>
 							<select name="usersInt" id="usersInt">
@@ -175,7 +187,7 @@ if (isset($_POST['action']))
 		break;
 		// ********************************************************************************************
 		case 'saveConfig':
-		if(strip_tags($_POST['i']) && strip_tags($_POST['a']))
+		if(isset($_POST['i']) && isset($_POST['a']))
 			{
 			if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
 				{
@@ -183,6 +195,7 @@ if (isset($_POST['action']))
 				$a = json_decode($q,true);
 				}
 			else $a = array();
+			$a['g'] = strip_tags($_POST['g']);
 			$a['i'] = strip_tags($_POST['i']);
 			$a['a'] = strip_tags($_POST['a']);
 			$a['c'] = strip_tags($_POST['c']);

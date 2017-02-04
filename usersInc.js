@@ -1,14 +1,18 @@
 var Users=0; // Check this array : e:email, n:name, d:registration date (unix)
 //
 function f_usersClicOff(){
-	if(document.getElementById('usersBox').style.display=='block'&&document.getElementById('usersBl').style.display=='block'){document.getElementById('usersBox').style.display='none';}
-	else{document.getElementById('usersBox').style.display='block';}
+	if(document.getElementById('usersBox').className=='usersBox boxOn'&&document.getElementById('usersBl').style.display=='block'){
+		document.getElementById('usersBox').className='usersBox boxOff';
+	}
+	else document.getElementById('usersBox').className='usersBox boxOn';
 	f_usersNone();document.getElementById('usersBl').style.display='block';
 	return false;
 }
 function f_usersClicOn(){
-	if(document.getElementById('usersBox').style.display=='block'&&document.getElementById('usersBo').style.display=='block'){document.getElementById('usersBox').style.display='none';}
-	else{document.getElementById('usersBox').style.display='block';}
+	if(document.getElementById('usersBox').className=='usersBox boxOn'&&document.getElementById('usersBo').style.display=='block'){
+		document.getElementById('usersBox').className='usersBox boxOff';
+	}
+	else document.getElementById('usersBox').className='usersBox boxOn';
 	f_usersNone();document.getElementById('usersBo').style.display='block';
 	return false;
 }

@@ -2,6 +2,13 @@
 if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])!='xmlhttprequest') {sleep(2);exit;} // ajax request
 $q = file_get_contents('../../data/busy.json'); $a = json_decode($q,true); $Ubusy = $a['nom'];
 include('../../config.php');
+$a = array();
+if(file_exists('../../data/_sdata-'.$sdata.'/users.json')) 
+	{
+	$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
+	$a = json_decode($q,true);
+	if(!empty($a['g'])) $lang = $a['g'];
+	}
 include('lang/lang.php');
 // ********************* actions *************************************************************************
 if (isset($_POST['a']))
@@ -16,31 +23,30 @@ if (isset($_POST['a']))
 				echo '!'.T_("Bad email format");
 				break;
 				}
-			if(!file_exists('../../data/_sdata-'.$sdata.'/users.json')) $a=array();
-			else
+			if(strlen(trim(strip_tags($_POST['u']))))
 				{
-				$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
-				$a = json_decode($q,true);
-				if(is_array($a)) foreach($a['user'] as $r)
+				echo '!'.T_("Bad name format");
+				break;
+				}
+			if(!empty($a['user'])) foreach($a['user'] as $r)
+				{
+				if(strip_tags($_POST['e']==$r['e']) || trim(strip_tags($_POST['u']))==$r['n'])
 					{
-					if(strip_tags($_POST['e']==$r['e']) || strip_tags($_POST['u']==$r['n']))
-						{
-						echo '!'.T_("Name or email already assigned");
-						die();
-						}
+					echo '!'.T_("Name or email already assigned");
+					die();
 					}
-				if(is_array($a)) foreach($a['black'] as $r)
+				}
+			if(!empty($a['black'])) foreach($a['black'] as $r)
+				{
+				if(strip_tags($_POST['e']==$r['e']))
 					{
-					if(strip_tags($_POST['e']==$r['e']))
-						{
-						echo '!'.T_("email blacklisted");
-						die();
-						}
+					echo '!'.T_("email blacklisted");
+					die();
 					}
 				}
 			$pass = f_newPass();
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/ssite.json'); $b = json_decode($q,true);
-			$a['user'][strip_tags($_POST['u'])] = array("e"=>strip_tags($_POST['e']), "n"=>strip_tags($_POST['u']), "p"=>crypt($pass), "s"=>time());
+			$a['user'][trim(strip_tags($_POST['u']))] = array("e"=>strip_tags($_POST['e']), "n"=>trim(strip_tags($_POST['u'])), "p"=>crypt($pass), "s"=>time());
 			$out = json_encode($a);
 			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
 				{
@@ -53,7 +59,7 @@ if (isset($_POST['a']))
 					$rn = "\r\n";
 					$boundary = "-----=".md5(rand());
 					$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
-					$body .= T_("Your login is").": <b>".strip_tags($_POST['u'])."</b><br />".$rn;
+					$body .= T_("Your login is").": <b>".trim(strip_tags($_POST['u']))."</b><br />".$rn;
 					$body .= T_("Your password is").": <b>".$pass."</b><br />".$rn;
 					$msgT = strip_tags($body);
 					$msgH = $top . $body . $bottom;
@@ -86,9 +92,7 @@ if (isset($_POST['a']))
 		case 'log':
 		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && isset($_POST['n']) && isset($_POST['p']))
 			{
-			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
-			$a = json_decode($q,true);
-			foreach($a['user'] as $r)
+			if(!empty($a['user'])) foreach($a['user'] as $r)
 				{
 				if(($r['e']==$_POST['n'] || $r['n']==$_POST['n']) && $r['p']==crypt(strip_tags($_POST['p']), $r['p']))
 					{
@@ -101,7 +105,7 @@ if (isset($_POST['a']))
 					die();
 					}
 				}
-			foreach($a['black'] as $r)
+			if(!empty($a['black'])) foreach($a['black'] as $r)
 				{
 				if($r['e']==$_POST['n'] || $r['n']==$_POST['n'])
 					{
@@ -119,9 +123,7 @@ if (isset($_POST['a']))
 		session_start();
 		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && isset($_SESSION['name']))
 			{
-			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
-			$a = json_decode($q,true);
-			foreach($a['user'] as $k=>$v)
+			if(!empty($a['user'])) foreach($a['user'] as $k=>$v)
 				{
 				if($v['n']==$_SESSION['name'])
 					{
@@ -148,9 +150,7 @@ if (isset($_POST['a']))
 				echo '!'.T_("New passwords different");
 				break;
 				}
-			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
-			$a = json_decode($q,true);
-			foreach($a['user'] as $k=>$v)
+			if(!empty($a['user'])) foreach($a['user'] as $k=>$v)
 				{
 				if($v['p']==crypt(strip_tags($_POST['c']), $v['p']) && strlen($_POST['n'])>3)
 					{
@@ -172,9 +172,7 @@ if (isset($_POST['a']))
 		if(isset($_POST['s']) && session_id()==$_POST['s'] && isset($_SESSION['name']))
 			{
 			$a1 = array();
-			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
-			$a = json_decode($q,true);
-			foreach($a['user'] as $r)
+			if(!empty($a['user'])) foreach($a['user'] as $r)
 				{
 				if($r['n']==$_SESSION['name'])
 					{
@@ -199,9 +197,7 @@ if (isset($_POST['a']))
 		case 'rec':
 		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && isset($_POST['e']))
 			{
-			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
-			$a = json_decode($q,true);
-			foreach($a['user'] as $k=>$r)
+			if(!empty($a['user'])) foreach($a['user'] as $k=>$r)
 				{
 				if($r['e']==$_POST['e'])
 					{
@@ -251,10 +247,8 @@ if (isset($_POST['a']))
 		break;
 		// ********************************************************************************************
 		case 'del':
-		if(file_exists('../../data/_sdata-'.$sdata.'/'.$Ubusy.'/users.json'))
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
 			{
-			$q = file_get_contents('../../data/_sdata-'.$sdata.'/'.$Ubusy.'/users.json');
-			$a = json_decode($q,true);
 			$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND);
 			$c = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, substr(strip_tags($a['pass']),0,30), base64_decode($_GET['c']), MCRYPT_MODE_ECB, $iv);
 			$c = rtrim($c, "\0");
@@ -262,7 +256,7 @@ if (isset($_POST['a']))
 				{
 				unset($a['list'][$k]);
 				$out = json_encode($a);
-				if(file_put_contents('../../data/_sdata-'.$sdata.'/'.$Ubusy.'/users.json', $out))
+				if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
 					{
 					echo "<script language='JavaScript'>setTimeout(function(){document.location.href='".strip_tags($_GET['b'])."';},2000);</script>";
 					echo "<html><head><meta charset='utf-8'></head><body><h3 style='text-align:center;margin-top:50px;'>".T_('Email deleted')."</h3></body></html>";

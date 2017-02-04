@@ -6,6 +6,7 @@ function f_saveConfig_users(){
 	jQuery(document).ready(function(){
 		jQuery.post('uno/plugins/users/users.php',{
 			'action':'saveConfig','unox':Unox,
+			'g':document.getElementById("usersLang").options[document.getElementById("usersLang").selectedIndex].value,
 			'i':document.getElementById("usersInt").options[document.getElementById("usersInt").selectedIndex].value,
 			'a':document.getElementById("usersAli").options[document.getElementById("usersAli").selectedIndex].value,
 			'c':document.getElementById("usersCol").value

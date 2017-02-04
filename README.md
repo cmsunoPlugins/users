@@ -31,6 +31,7 @@ Login with Ajax and PHP session.
 
 ### Versions ###
 
+* 1.2 - 04/02/2017 : CSS transition - The form and email language can be specified
 * 1.1 - 14/10/2016 : Use PHP-Gettext in place of gettext
 * 1.0.1 - 16/11/2015 : ColorPicker
 * 1.0 - 05/10/2015 : First stable version
