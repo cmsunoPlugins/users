@@ -87,7 +87,7 @@ function f_usersUnsub(){
 }
 function f_usersPass(){
 	var x=f_usersAjax(false);
-	x.onreadystatechange=function(){if(x.readyState==4&&x.status==200){f_usersAlert(x.responseText,0);}};
+	x.onreadystatechange=function(){if(x.readyState==4&&x.status==200){f_usersAlert(x.responseText,1);}};
 	x.send('a=pass&c='+document.getElementById('usersPc').value+'&n='+document.getElementById('usersPn').value+'&g='+document.getElementById('usersPa').value);
 }
 function f_usersNone(){
@@ -105,7 +105,7 @@ function f_usersAlert(f,r){
 	if(f.substr(0,1)=="!"){a.style.color="red";f=f.substr(1);b=1;}
 	else a.style.color="green";
 	a.innerHTML=f;
-	setTimeout(function(){a.innerHTML="";if(b==0&&f.length>1)document.getElementById('usersBox').style.display='none';if(r)location.reload();},2100);
+	setTimeout(function(){a.innerHTML="";if(b==0&&f.length>1)document.getElementById('usersAlert').innerHTML='';if(r)location.reload();},2100);
 }
 function f_usersAjax(f){
 	var x=new XMLHttpRequest();

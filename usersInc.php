@@ -23,7 +23,7 @@ if (isset($_POST['a']))
 				echo '!'.T_("Bad email format");
 				break;
 				}
-			if(strlen(trim(strip_tags($_POST['u']))))
+			if(!strlen(trim(strip_tags($_POST['u']))))
 				{
 				echo '!'.T_("Bad name format");
 				break;
