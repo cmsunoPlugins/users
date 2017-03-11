@@ -15,6 +15,7 @@ if (isset($_POST['a']))
 	{
 	switch($_POST['a'])
 		{
+		// ********************************************************************************************
 		case 'reg':
 		if(isset($_POST['e']) && isset($_POST['u']))
 			{
@@ -46,42 +47,69 @@ if (isset($_POST['a']))
 				}
 			$pass = f_newPass();
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/ssite.json'); $b = json_decode($q,true);
-			$a['user'][trim(strip_tags($_POST['u']))] = array("e"=>strip_tags($_POST['e']), "n"=>trim(strip_tags($_POST['u'])), "p"=>crypt($pass), "s"=>time());
+			$a['user'][trim(strip_tags($_POST['u']))] = array(
+				"e"=>strip_tags($_POST['e']),
+				"n"=>trim(strip_tags($_POST['u'])),
+				"p"=>crypt($pass,$Ukey),
+				"s"=>time());
 			$out = json_encode($a);
 			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
 				{
-				include '../../template/mailTemplate.php';
-				$bottom= str_replace('[[unsubscribe]]',"", $bottom); // template
 				if(file_exists('../../data/'.$Ubusy.'/site.json'))
 					{
+					include '../../template/mailTemplate.php';
+					$bottom= str_replace('[[unsubscribe]]',"", $bottom); // template
 					$q = file_get_contents('../../data/'.$Ubusy.'/site.json');
 					$a = json_decode($q,true);
-					$rn = "\r\n";
-					$boundary = "-----=".md5(rand());
-					$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
-					$body .= T_("Your login is").": <b>".trim(strip_tags($_POST['u']))."</b><br />".$rn;
-					$body .= T_("Your password is").": <b>".$pass."</b><br />".$rn;
+					$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />\r\n";
+					$body .= T_("Your login is").": <b>".trim(strip_tags($_POST['u']))."</b><br />\r\n";
+					$body .= T_("Your password is").": <b>".$pass."</b><br />\r\n";
 					$msgT = strip_tags($body);
 					$msgH = $top . $body . $bottom;
 					$sujet = $a['tit'].' - '. T_("Registration");
-					$fm = preg_replace("/[^a-zA-Z ]+/", "", $a['tit']);
-					$header  = "From: ".$fm."<".$b['mel'].">".$rn."Reply-To:".$fm."<".$b['mel'].">";
-					$header.= "MIME-Version: 1.0".$rn;
-					$header.= "Content-Type: multipart/alternative;".$rn." boundary=\"$boundary\"".$rn;
-					$msg= $rn."--".$boundary.$rn;
-					$msg.= "Content-Type: text/plain; charset=\"utf-8\"".$rn;
-					$msg.= "Content-Transfer-Encoding: 8bit".$rn;
-					$msg.= $rn.$msgT.$rn;
-					$msg.= $rn."--".$boundary.$rn;
-					$msg.= "Content-Type: text/html; charset=\"utf-8\"".$rn;
-					$msg.= "Content-Transfer-Encoding: 8bit".$rn;
-					$msg.= $rn.$msgH.$rn;
-					$msg.= $rn."--".$boundary."--".$rn;
-					$msg.= $rn."--".$boundary."--".$rn;
-					if(mail(strip_tags($_POST['e']), stripslashes($sujet), stripslashes($msg),$header))
+					$dest = strip_tags($_POST['e']);
+					if(file_exists('../newsletter/PHPMailer/PHPMailerAutoload.php'))
 						{
-						echo T_("You will receive an email with your password");
-						break;
+						// PHPMailer
+						require '../newsletter/PHPMailer/PHPMailerAutoload.php';
+						$phm = new PHPMailer();
+						$phm->CharSet = "UTF-8";
+						$phm->setFrom($b['mel'], $fm);
+						$phm->addReplyTo($b['mel'], $fm);
+						$phm->AddAddress($dest);
+						$phm->isHTML(true);
+						$phm->Subject = stripslashes($sujet);
+						$phm->Body = stripslashes($msgH);		
+						$phm->AltBody = stripslashes($msgT);
+						if($phm->Send())
+							{
+							echo T_("You will receive an email with your password");
+							break;
+							}
+						}
+					else
+						{
+						$rn = "\r\n";
+						$boundary = "-----=".md5(rand());
+						$fm = preg_replace("/[^a-zA-Z ]+/", "", $a['tit']);
+						$header  = "From: ".$fm."<".$b['mel'].">".$rn."Reply-To:".$fm."<".$b['mel'].">";
+						$header.= "MIME-Version: 1.0".$rn;
+						$header.= "Content-Type: multipart/alternative;".$rn." boundary=\"$boundary\"".$rn;
+						$msg= $rn."--".$boundary.$rn;
+						$msg.= "Content-Type: text/plain; charset=\"utf-8\"".$rn;
+						$msg.= "Content-Transfer-Encoding: 8bit".$rn;
+						$msg.= $rn.$msgT.$rn;
+						$msg.= $rn."--".$boundary.$rn;
+						$msg.= "Content-Type: text/html; charset=\"utf-8\"".$rn;
+						$msg.= "Content-Transfer-Encoding: 8bit".$rn;
+						$msg.= $rn.$msgH.$rn;
+						$msg.= $rn."--".$boundary."--".$rn;
+						$msg.= $rn."--".$boundary."--".$rn;
+						if(mail($dest, stripslashes($sujet), stripslashes($msg),$header))
+							{
+							echo T_("You will receive an email with your password");
+							break;
+							}
 						}
 					}
 				}
@@ -94,7 +122,7 @@ if (isset($_POST['a']))
 			{
 			if(!empty($a['user'])) foreach($a['user'] as $r)
 				{
-				if(($r['e']==$_POST['n'] || $r['n']==$_POST['n']) && $r['p']==crypt(strip_tags($_POST['p']), $r['p']))
+				if(($r['e']==$_POST['n'] || $r['n']==$_POST['n']) && $r['p']==crypt(strip_tags($_POST['p'],$Ukey), $r['p']))
 					{
 					// connect
 					session_start();
@@ -152,9 +180,9 @@ if (isset($_POST['a']))
 				}
 			if(!empty($a['user'])) foreach($a['user'] as $k=>$v)
 				{
-				if($v['p']==crypt(strip_tags($_POST['c']), $v['p']) && strlen($_POST['n'])>3)
+				if($v['p']==crypt(strip_tags($_POST['c']),$v['p']) && strlen($_POST['n'])>3)
 					{
-					$a['user'][$k]['p'] = crypt(strip_tags($_POST['n']));
+					$a['user'][$k]['p'] = crypt(strip_tags($_POST['n']),$Ukey);
 					$out = json_encode($a);
 					if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
 						{
@@ -202,7 +230,7 @@ if (isset($_POST['a']))
 				if($r['e']==$_POST['e'])
 					{
 					$pass = f_newPass();
-					$a['user'][$k]['p'] = crypt($pass);
+					$a['user'][$k]['p'] = crypt($pass,$Ukey);
 					$out = json_encode($a);
 					include '../../template/mailTemplate.php';
 					$bottom= str_replace('[[unsubscribe]]',"", $bottom); // template
@@ -211,61 +239,63 @@ if (isset($_POST['a']))
 						$q = file_get_contents('../../data/_sdata-'.$sdata.'/ssite.json'); $b = json_decode($q,true);
 						$q = file_get_contents('../../data/'.$Ubusy.'/site.json');
 						$a = json_decode($q,true);
-						$rn = "\r\n";
-						$boundary = "-----=".md5(rand());
-						$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />".$rn;
-						$body .= T_("Your login is").": <b>".$r['n']."</b><br />".$rn;
-						$body .= T_("Your new password is").": <b>".$pass."</b><br />".$rn;
+						$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />\r\n";
+						$body .= T_("Your login is").": <b>".$r['n']."</b><br />\r\n";
+						$body .= T_("Your new password is").": <b>".$pass."</b><br />\r\n";
 						$msgT = strip_tags($body);
 						$msgH = $top . $body . $bottom;
 						$sujet = $a['tit'].' - '. T_("Recover Password");
+						$dest = strip_tags($_POST['e']);
 						$fm = preg_replace("/[^a-zA-Z ]+/", "", $a['tit']);
-						$header  = "From: ".$fm."<".$b['mel'].">".$rn."Reply-To:".$fm."<".$b['mel'].">";
-						$header.= "MIME-Version: 1.0".$rn;
-						$header.= "Content-Type: multipart/alternative;".$rn." boundary=\"$boundary\"".$rn;
-						$msg= $rn."--".$boundary.$rn;
-						$msg.= "Content-Type: text/plain; charset=\"utf-8\"".$rn;
-						$msg.= "Content-Transfer-Encoding: 8bit".$rn;
-						$msg.= $rn.$msgT.$rn;
-						$msg.= $rn."--".$boundary.$rn;
-						$msg.= "Content-Type: text/html; charset=\"utf-8\"".$rn;
-						$msg.= "Content-Transfer-Encoding: 8bit".$rn;
-						$msg.= $rn.$msgH.$rn;
-						$msg.= $rn."--".$boundary."--".$rn;
-						$msg.= $rn."--".$boundary."--".$rn;
-						if(mail(strip_tags($_POST['e']), stripslashes($sujet), stripslashes($msg),$header))
+						if(file_exists('../newsletter/PHPMailer/PHPMailerAutoload.php'))
 							{
-							echo T_("You will receive an email with your password");
-							die();
+							// PHPMailer
+							require '../newsletter/PHPMailer/PHPMailerAutoload.php';
+							$phm = new PHPMailer();
+							$phm->CharSet = "UTF-8";
+							$phm->setFrom($b['mel'], $fm);
+							$phm->addReplyTo($b['mel'], $fm);
+							$phm->AddAddress($dest);
+							$phm->isHTML(true);
+							$phm->Subject = stripslashes($sujet);
+							$phm->Body = stripslashes($msgH);		
+							$phm->AltBody = stripslashes($msgT);
+							if($phm->Send())
+								{
+								echo T_("You will receive an email with your password");
+								die();
+								}
+							}
+						else
+							{
+							$rn = "\r\n";
+							$boundary = "-----=".md5(rand());
+							$header  = "From: ".$fm."<".$b['mel'].">".$rn."Reply-To:".$fm."<".$b['mel'].">";
+							$header.= "MIME-Version: 1.0".$rn;
+							$header.= "Content-Type: multipart/alternative;".$rn." boundary=\"$boundary\"".$rn;
+							$msg= $rn."--".$boundary.$rn;
+							$msg.= "Content-Type: text/plain; charset=\"utf-8\"".$rn;
+							$msg.= "Content-Transfer-Encoding: 8bit".$rn;
+							$msg.= $rn.$msgT.$rn;
+							$msg.= $rn."--".$boundary.$rn;
+							$msg.= "Content-Type: text/html; charset=\"utf-8\"".$rn;
+							$msg.= "Content-Transfer-Encoding: 8bit".$rn;
+							$msg.= $rn.$msgH.$rn;
+							$msg.= $rn."--".$boundary."--".$rn;
+							$msg.= $rn."--".$boundary."--".$rn;
+							if(mail($dest, stripslashes($sujet), stripslashes($msg),$header))
+								{
+								echo T_("You will receive an email with your password");
+								die();
+								}
 							}
 						}
 					break;
 					}
 				}
+			echo '!'.T_("Unknown email");
+			break;
 			}
-		echo '!'.T_("Unknown email");
-		break;
-		// ********************************************************************************************
-		case 'del':
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
-			{
-			$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND);
-			$c = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, substr(strip_tags($a['pass']),0,30), base64_decode($_GET['c']), MCRYPT_MODE_ECB, $iv);
-			$c = rtrim($c, "\0");
-			if(($c==$_GET['m']) && ($k=array_search(strip_tags($_GET['m']),$a['list']))!==false)
-				{
-				unset($a['list'][$k]);
-				$out = json_encode($a);
-				if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out))
-					{
-					echo "<script language='JavaScript'>setTimeout(function(){document.location.href='".strip_tags($_GET['b'])."';},2000);</script>";
-					echo "<html><head><meta charset='utf-8'></head><body><h3 style='text-align:center;margin-top:50px;'>".T_('Email deleted')."</h3></body></html>";
-					break;
-					}
-				}
-			}
-		echo "<script language='JavaScript'>document.location.href='".strip_tags($_GET['b'])."';</script>";
-		break;
 		// ********************************************************************************************
 		}
 	clearstatcache();

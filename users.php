@@ -219,7 +219,7 @@ if (isset($_POST['action']))
 				$a = json_decode($q,true);
 				}
 			else $a = array();
-			$a['user'][strip_tags($_POST['n'])] = array("e"=>strip_tags($_POST['e']), "n"=>strip_tags($_POST['n']), "p"=>crypt($_POST['p']), "s"=>time());
+			$a['user'][strip_tags($_POST['n'])] = array("e"=>strip_tags($_POST['e']), "n"=>strip_tags($_POST['n']), "p"=>crypt($_POST['p'],$Ukey), "s"=>time());
 			$out = json_encode($a);
 			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('User added');
 			}
