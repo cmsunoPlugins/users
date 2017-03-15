@@ -31,6 +31,7 @@ Login with Ajax and PHP session.
 
 ### Versions ###
 
+* 1.2.3 - 15/03/2017 : Fix issue when unknow lang
 * 1.2.2 - 11/03/2017 : Use PHPMailer if Newsletter plugin exists - Add Salt in crypt() method
 * 1.2.1 - 16/02/2017 : Fix registration issue
 * 1.2 - 04/02/2017 : CSS transition - The form and email language can be specified
