@@ -1,33 +1,27 @@
 var Users=0; // Check this array : e:email, n:name, d:registration date (unix)
 //
-function f_usersClicOff(){
-	if(document.getElementById('usersBox').className=='usersBox boxOn'&&document.getElementById('usersBl').style.display=='block'){
-		document.getElementById('usersBox').className='usersBox boxOff';
+function f_usersClic(f){
+	var a=document.getElementById('usersBox'),b=document.getElementById(f==1?'usersBo':'usersBl');
+	if(a.className.indexOf('w3-hide')!=-1)a.className=a.className.replace('w3-hide','w3-show');
+	else{
+		a.className=a.className.replace('w3-show','w3-hide');
+		if(a.className.indexOf('w3-hide')==-1)a.className+=' w3-hide';
 	}
-	else document.getElementById('usersBox').className='usersBox boxOn';
-	f_usersNone();document.getElementById('usersBl').style.display='block';
-	return false;
-}
-function f_usersClicOn(){
-	if(document.getElementById('usersBox').className=='usersBox boxOn'&&document.getElementById('usersBo').style.display=='block'){
-		document.getElementById('usersBox').className='usersBox boxOff';
-	}
-	else document.getElementById('usersBox').className='usersBox boxOn';
-	f_usersNone();document.getElementById('usersBo').style.display='block';
+	f_usersNone('');b.className=b.className.replace('w3-hide','w3-show');
 	return false;
 }
 function f_usersLog(){
-	var x,ne,pw,n,a;
-	ne=document.getElementById('usersNe').value;pw=document.getElementById('usersPw').value;
+	var x,n,a,ne=document.getElementById('usersNe').value,pw=document.getElementById('usersPw').value,b=document.getElementById('usersBox');
 	x=f_usersAjax(true);
 	x.onreadystatechange=function(){
-		if (x.readyState==4 && x.status==200){
+		if(x.readyState==4&&x.status==200){
 			a=x.responseText;
 			if(a.substr(0,1)=="|")f_usersAlert(a.substr(1),0);
 			sessid=/SESS\w*ID=([^;]+)/i.test(document.cookie)?RegExp.$1:false;
 			if(a==sessid){
 				f_usersOn(ne);
-				document.getElementById('usersBox').style.display='none';
+				b.className=b.className.replace('w3-show','w3-hide');
+				if(b.className.indexOf('w3-hide')==-1)b.className+=' w3-hide';
 				location.reload();
 			}
 		}
@@ -45,17 +39,22 @@ function f_usersCheck(){
 	}
 }
 function f_usersOn(f){
-	document.getElementById('usersOff').style.display='none';
-	document.getElementById('usersOn').style.display='inline';
+	var a=document.getElementById('usersOff'),b=document.getElementById('usersOn');
+	a.className=a.className.replace('w3-show','w3-hide');
+	if(a.className.indexOf('w3-hide')==-1)a.className+=' w3-hide';
+	b.className=b.className.replace('w3-hide','w3-show');
+	if(b.className.indexOf('w3-show')==-1)b.className+=' w3-show';
 	document.getElementById('usersHello').innerHTML=f;
 }
-function f_usersOut(){
-	document.getElementById('usersOff').style.display='inline';
-	document.getElementById('usersOn').style.display='none';
+function f_usersOut(f){
+	var a=document.getElementById('usersOn'),b=document.getElementById('usersOff'),x=f_usersAjax(true);
+	a.className=a.className.replace('w3-show','w3-hide');
+	if(a.className.indexOf('w3-hide')==-1)a.className+=' w3-hide';
+	b.className=b.className.replace('w3-hide','w3-show');
+	if(b.className.indexOf('w3-show')==-1)b.className+=' w3-show';
 	document.getElementById('usersHello').innerHTML='';
-	var x=f_usersAjax(true);
-	x.onreadystatechange=function(){
-		if (x.readyState==4&&x.status==200){
+	if(f!=0)x.onreadystatechange=function(){
+		if(x.readyState==4&&x.status==200){
 			document.cookie='PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 			f_usersAlert(x.responseText,1);
 		}
@@ -63,9 +62,7 @@ function f_usersOut(){
 	x.send('a=out');
 }
 function f_usersReg(){
-	var x,em,un;
-	em=document.getElementById('usersEm').value;un=document.getElementById('usersUn').value;
-	x=f_usersAjax(false);
+	var em=document.getElementById('usersEm').value,un=document.getElementById('usersUn').value,x=f_usersAjax(false);
 	x.onreadystatechange=function(){if(x.readyState==4&&x.status==200)f_usersAlert(x.responseText,0);};
 	x.send('a=reg&e='+em+'&u='+un);
 }
@@ -79,8 +76,7 @@ function f_usersUnsub(){
 	x.onreadystatechange=function(){
 		if (x.readyState==4&&x.status==200){
 			f_usersAlert(x.responseText,1);
-			document.getElementById('usersOff').style.display='inline';
-			document.getElementById('usersOn').style.display='none';
+			f_usersOut(0);
 		}
 	};
 	x.send('a=unsub');
@@ -90,22 +86,30 @@ function f_usersPass(){
 	x.onreadystatechange=function(){if(x.readyState==4&&x.status==200){f_usersAlert(x.responseText,1);}};
 	x.send('a=pass&c='+document.getElementById('usersPc').value+'&n='+document.getElementById('usersPn').value+'&g='+document.getElementById('usersPa').value);
 }
-function f_usersNone(){
-	document.getElementById('usersBl').style.display='none';
-	document.getElementById('usersBr').style.display='none';
-	document.getElementById('usersBf').style.display='none';
-	document.getElementById('usersBo').style.display='none';
-	document.getElementById('usersBp').style.display='none';
-	document.getElementById('usersPw').value="";document.getElementById('usersNe').value="";
-	document.getElementById('usersEm').value="";document.getElementById('usersUn').value="";document.getElementById('usersEf').value="";
-	document.getElementById('usersPc').value="";document.getElementById('usersPn').value="";document.getElementById('usersPa').value="";
+function f_usersNone(f){
+	var a=['usersBl','usersBr','usersBf','usersBo'],b=['usersPw','usersNe','usersEm','usersUn','usersEf','usersPc','usersPn','usersPa'],v;
+	for(v=0;v<a.length;++v)document.getElementById(a[v]).className=document.getElementById(a[v]).className.replace('w3-show','w3-hide');
+	if(f!='')document.getElementById(f).className=document.getElementById(f).className.replace('w3-hide','w3-show');
+	for(v=0;v<b.length;++v)document.getElementById(b[v]).value="";
 }
 function f_usersAlert(f,r){
-	var a=document.getElementById('usersAlert');b=0;
-	if(f.substr(0,1)=="!"){a.style.color="red";f=f.substr(1);b=1;}
-	else a.style.color="green";
+	var a=document.getElementById('usersAlert');
+	if(f.substr(0,1)=="!"){
+		a.className=a.className.replace('w3-green','');
+		if(a.className.indexOf('w3-red')==-1)a.className+=' w3-red';
+		f=f.substr(1);b=1;}
+	else{
+		a.className=a.className.replace('w3-red','');
+		if(a.className.indexOf('w3-green')==-1)a.className+=' w3-green';
+	}
+	a.className=a.className.replace('w3-hide','w3-show');
 	a.innerHTML=f;
-	setTimeout(function(){a.innerHTML="";if(b==0&&f.length>1)document.getElementById('usersAlert').innerHTML='';if(r)location.reload();},2100);
+	setTimeout(function(){
+		a.innerHTML='';
+		a.className=a.className.replace('w3-show','w3-hide');
+		if(a.className.indexOf('w3-hide')==-1)a.className+=' w3-hide';
+		if(r)location.reload();
+	},2100);
 }
 function f_usersAjax(f){
 	var x=new XMLHttpRequest();
@@ -115,7 +119,7 @@ function f_usersAjax(f){
 	return x;
 }
 function f_usersGravatar(e,s){
-	var s=s||80;return 'http://www.gravatar.com/avatar/'+e+'.jpg?s='+s;
+	var s=s||80;return '//www.gravatar.com/avatar/'+e+'.jpg?s='+s;
 }
 //
 f_usersCheck();

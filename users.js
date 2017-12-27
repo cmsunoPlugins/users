@@ -44,7 +44,7 @@ function f_load_users(){
 				jQuery.each(r.user,function(k,v){
 					d=f_timeConvert(v.s);
 					tr=document.createElement('tr');
-					td=document.createElement('td');td.innerHTML=v.n;tr.appendChild(td); // name
+					td=document.createElement('td');td.innerHTML=v.n;td.onclick=function(){f_psw_users(v.n,this.parentElement)};tr.appendChild(td); // name
 					td=document.createElement('td');td.innerHTML=v.e;tr.appendChild(td); // mail
 					td=document.createElement('td');td.innerHTML=d;tr.appendChild(td); // date
 					td=document.createElement('td');td.onclick=function(){f_bl_users(v.n,1)};td.className='jail';td.title='Black List';tr.appendChild(td);
@@ -113,6 +113,15 @@ function f_new_users(){
 	document.getElementById('usersEditP').value='';
 	if(document.getElementById('usersEdit').style.display=="block")document.getElementById('usersEdit').style.display="none";
 	else document.getElementById('usersEdit').style.display="block";
+}
+function f_psw_users(f,g){
+	var a=document.createElement('div'),b=document.createElement('input');
+	b.id='chpsw';b.type='text';b.placeholder='pass';a.appendChild(b);
+	b=document.createElement('button');b.innerHTML='save';
+	b.onclick=function(){jQuery.post('uno/plugins/users/users.php',{'action':'psw','unox':Unox,'name':f,'psw':document.getElementById('chpsw').value},function(r){
+		f_alert(r);jQuery('#chpsw').parent().remove();
+	});}
+	a.appendChild(b);g.parentElement.insertBefore(a,g);
 }
 function f_checkN(f){
 	jQuery(document).ready(function(){

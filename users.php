@@ -121,6 +121,31 @@ if (isset($_POST['action']))
 		exit;
 		break;
 		// ********************************************************************************************
+		case 'psw':
+		$p = $_POST['psw']; $b = 0;
+		$p = crypt($p,$Ukey);
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && !empty($p))
+			{
+			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
+			$a = json_decode($q,true);
+			foreach($a['user'] as $k=>$r)
+				{
+				if($r['n']==$_POST['name'])
+					{
+					$a['user'][$k]['p'] = $p;
+					$b = 1;
+					break;
+					}
+				}
+			if($b && file_put_contents('../../data/_sdata-'.$sdata.'/users.json', json_encode($a)))
+				{
+				echo T_("Password changed");
+				exit;
+				}
+			}
+		if(!$b) echo '!'.T_("Error");
+		break;
+		// ********************************************************************************************
 		case 'del':
 		$l = $_POST['del'];
 		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l)

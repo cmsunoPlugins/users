@@ -11,27 +11,28 @@ if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
 	}
 include('lang/lang.php');
 // ********************* actions *************************************************************************
-if (isset($_POST['a']))
+if(isset($_POST['a']))
 	{
 	switch($_POST['a'])
 		{
 		// ********************************************************************************************
 		case 'reg':
-		if(isset($_POST['e']) && isset($_POST['u']))
+		if(!empty($_POST['e']) && !empty($_POST['u']))
 			{
+			$fm = trim(strip_tags($_POST['u']));
 			if(!filter_var(strip_tags($_POST['e']),FILTER_VALIDATE_EMAIL))
 				{
 				echo '!'.T_("Bad email format");
 				break;
 				}
-			if(!strlen(trim(strip_tags($_POST['u']))))
+			if(!strlen($fm))
 				{
 				echo '!'.T_("Bad name format");
 				break;
 				}
 			if(!empty($a['user'])) foreach($a['user'] as $r)
 				{
-				if(strip_tags($_POST['e']==$r['e']) || trim(strip_tags($_POST['u']))==$r['n'])
+				if(strip_tags($_POST['e']==$r['e']) || $fm==$r['n'])
 					{
 					echo '!'.T_("Name or email already assigned");
 					die();
@@ -47,9 +48,9 @@ if (isset($_POST['a']))
 				}
 			$pass = f_newPass();
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/ssite.json'); $b = json_decode($q,true);
-			$a['user'][trim(strip_tags($_POST['u']))] = array(
+			$a['user'][$fm] = array(
 				"e"=>strip_tags($_POST['e']),
-				"n"=>trim(strip_tags($_POST['u'])),
+				"n"=>$fm,
 				"p"=>crypt($pass,$Ukey),
 				"s"=>time());
 			$out = json_encode($a);
@@ -62,7 +63,7 @@ if (isset($_POST['a']))
 					$q = file_get_contents('../../data/'.$Ubusy.'/site.json');
 					$a = json_decode($q,true);
 					$body = T_("Welcome on")." <a href='".$a['url']."/".$a['nom'].".html'>".$a['tit']."</a><br /><br />\r\n";
-					$body .= T_("Your login is").": <b>".trim(strip_tags($_POST['u']))."</b><br />\r\n";
+					$body .= T_("Your login is").": <b>".$fm."</b><br />\r\n";
 					$body .= T_("Your password is").": <b>".$pass."</b><br />\r\n";
 					$msgT = strip_tags($body);
 					$msgH = $top . $body . $bottom;
@@ -229,6 +230,7 @@ if (isset($_POST['a']))
 				{
 				if($r['e']==$_POST['e'])
 					{
+					$fm = $r['n'];
 					$pass = f_newPass();
 					$a['user'][$k]['p'] = crypt($pass,$Ukey);
 					$out = json_encode($a);

@@ -11,65 +11,74 @@ if(file_exists('data/_sdata-'.$sdata.'/users.json'))
 	include('plugins/users/lang/lang.php');
 	$integ = 'shortcode';
 	$align = 'left';
-	$color = '';
-	if(isset($a['i'])) $integ = $a['i'];
-	if(isset($a['a'])) $align = $a['a'];
-	if(isset($a['c'])) $color = $a['c'];
-	$a1='<div id="usersSession" class="usersSession">
-		<a id="usersOff" href="JavaScript:void(0);" onClick="f_usersClicOff();">'.T_("Login").'</a>
-		<a id="usersOn" href="JavaScript:void(0);" onClick="f_usersClicOn();" style="display:none;">'.T_("Hello").'&nbsp;<span id="usersHello"></span>&nbsp;&nbsp;<span style="font-size:120%;">&equiv;</span></a>
-		<div id="usersBox" class="usersBox boxOff" style="'.$align.':0;'.($color?'background-color:'.$color.';':'').'">
-			<div class="usersAlert" id="usersAlert"></div>
-			<div id="usersBl" style="display:none;">
-				<fieldset>
+	$color = (empty($Ua['w3'])?'#eee':'');
+	if(!empty($a['i'])) $integ = $a['i'];
+	if(!empty($a['a'])) $align = $a['a'];
+	if(!empty($a['c'])) $color = $a['c'];
+	$a1 = '<div class="'.(isset($Uw3['dropdown']['w3-dropdown-click'])?$Uw3['dropdown']['w3-dropdown-click']:'w3-dropdown-click').' usersSession" id="usersSession">
+	<button class="'.(isset($Uw3['dropdown']['w3-button'])?$Uw3['dropdown']['w3-button']:'w3-button').'" id="usersOff" onClick="f_usersClic(0);">'.T_("Login").'</button>
+	<button class="'.(isset($Uw3['dropdown']['w3-button'])?$Uw3['dropdown']['w3-button']:'w3-button').' w3-hide" id="usersOn" onClick="f_usersClic(1);">'.T_("Hello").'&nbsp;<span id="usersHello"></span>&nbsp;&nbsp;<span style="font-size:120%;">&equiv;</span></button>
+	<div id="usersBox" class="'.(isset($Uw3['dropdown']['w3-dropdown-content'])?$Uw3['dropdown']['w3-dropdown-content']:'w3-dropdown-content').' '.(isset($Uw3['card']['w3-card'])?$Uw3['card']['w3-card']:'w3-card').' usersBox w3-hide" style="width:214px;'.$align.':0;'.($color?'background-color:'.$color.';':'').'">
+		<div class="w3-container">
+			<div class="w3-panel w3-hide usersAlert" id="usersAlert"></div>
+			<div id="usersBl" class="w3-hide">
+				<div class="w3-section">
 					<label>'.T_("Username or email").'</label>
-					<input id="usersNe" name="usersNe" value="" type="text" />
+					<input class="w3-input" id="usersNe" name="usersNe" value="" type="text" />
 					<label>'.T_("Password").'</label>
-					<input id="usersPw" name="usersPw" value="" type="password" />
-				</fieldset>
-				<input type="button" class="button" value="'.T_("Login").'" onClick="f_usersLog();" />
-				<div class="usersLink">
-					<a href="JavaScript:void(0);" onClick="f_usersNone();document.getElementById(\'usersBf\').style.display=\'block\';">'.T_("Forgot your password").'</a><br />
-					<a href="JavaScript:void(0);" onClick="f_usersNone();document.getElementById(\'usersBr\').style.display=\'block\';">'.T_("Register").'</a>
+					<input class="w3-input" id="usersPw" name="usersPw" value="" type="password" />
+				</div>
+				<div class="w3-section">
+					<button class="'.(isset($Uw3['card']['w3-button'])?$Uw3['card']['w3-button']:'w3-button').'" onClick="f_usersLog();">'.T_("Login").'</button>
+					<div class="usersLink">
+						<a href="JavaScript:void(0);" onClick="f_usersNone(\'usersBf\');">'.T_("Forgot your password").'</a><br />
+						<a href="JavaScript:void(0);" onClick="f_usersNone(\'usersBr\');">'.T_("Register").'</a>
+					</div>
 				</div>
 			</div>
-			<div id="usersBr" style="display:none;">
-				<fieldset>
+			<div id="usersBr" class="w3-hide">
+				<div class="w3-section">
 					<label>'.T_("Email").'</label>
-					<input id="usersEm" name="usersEm" value="" type="text" />
+					<input class="w3-input" id="usersEm" name="usersEm" value="" type="text" />
 					<label>'.T_("Username").'</label>
-					<input id="usersUn" name="usersUn" value="" type="text" />
-				</fieldset>
-				<input type="button" class="button" value="'.T_("Register").'" onClick="f_usersReg();" />
+					<input class="w3-input" id="usersUn" name="usersUn" value="" type="text" />
+				</div>
+				<div class="w3-section">
+					<button class="'.(isset($Uw3['card']['w3-button'])?$Uw3['card']['w3-button']:'w3-button').'" onClick="f_usersReg();">'.T_("Register").'</button>
+				</div>
 			</div>
-			<div id="usersBf" style="display:none;">
-				<fieldset>
+			<div id="usersBf" class="w3-hide">
+				<div class="w3-section">
 					<label>'.T_("Email").'</label>
-					<input id="usersEf" name="usersEf" value="" type="text" />
-				</fieldset>
-				<input type="button" class="button" value="'.T_("Recover").'" onClick="f_usersRec();" />
+					<input class="w3-input" id="usersEf" name="usersEf" value="" type="text" />
+				</div>
+				<div class="w3-section">
+					<button class="'.(isset($Uw3['card']['w3-button'])?$Uw3['card']['w3-button']:'w3-button').'" onClick="f_usersRec();">'.T_("Recover").'</button>
+				</div>
 			</div>
-			<div id="usersBo" style="display:none;">
+			<div id="usersBo" class="w3-hide">
 				<div class="usersLink">
-					<a href="JavaScript:void(0);" onClick="f_usersOut();">'.T_("Logout").'</a><br />
-					<a href="JavaScript:void(0);" onClick="f_usersNone();document.getElementById(\'usersBp\').style.display=\'block\';">'.T_("Change Password").'</a><br />
+					<a href="JavaScript:void(0);" onClick="f_usersOut(1);">'.T_("Logout").'</a><br />
+					<a href="JavaScript:void(0);" onClick="f_usersNone(\'usersBp\');">'.T_("Change Password").'</a><br />
 					<a href="JavaScript:void(0);" onClick="f_usersUnsub();">'.T_("Unsubscribe").'</a>
 				</div>
 			</div>
-			<div id="usersBp" style="display:none;">
-				<fieldset>
+			<div id="usersBp" class="w3-hide">
+				<div class="w3-section">
 					<label>'.T_("Current Password").'</label>
-					<input id="usersPc" name="usersPc" value="" type="password" />
+					<input class="w3-input" id="usersPc" name="usersPc" value="" type="password" />
 					<label>'.T_("New Password").'</label>
-					<input id="usersPn" name="usersPn" value="" type="password" />
+					<input class="w3-input" id="usersPn" name="usersPn" value="" type="password" />
 					<label>'.T_("New Password again").'</label>
-					<input id="usersPa" name="usersPa" value="" type="password" />
-				</fieldset>
-				<input type="button" class="button" value="'.T_("Save").'" onClick="f_usersPass();" />
+					<input class="w3-input" id="usersPa" name="usersPa" value="" type="password" />
+				</div>
+				<div class="w3-section">
+					<button class="'.(isset($Uw3['card']['w3-button'])?$Uw3['card']['w3-button']:'w3-button').'" onClick="f_usersPass();">'.T_("Save").'</button>
+				</div>
 			</div>
-		</div><!-- #usersBox -->
-	</div><!-- #usersSession -->'."\r\n";
-	$Uhead .= '<link rel="stylesheet" href="uno/plugins/users/usersInc.css" type="text/css" />'."\r\n";
+		</div>
+	</div></div><!-- #usersSession -->'."\r\n";
+	if(empty($Ua['w3'])) $Uhead .= '<link rel="stylesheet" href="uno/plugins/users/usersInc.css" type="text/css" />'."\r\n";
 	$Ufoot .= '<script type="text/javascript" src="uno/plugins/users/usersInc.js"></script>'."\r\n";
 	if($integ=='shortcode')
 		{
