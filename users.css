@@ -7,3 +7,7 @@
 .userTab .jail{width:16px;height:16px;background-image:url("img/jail.png");background-repeat:no-repeat;background-position:center center;cursor:pointer;}
 .usersList table td input{margin-left:10px;}
 #checkE, #checkN{font-size:90%;color:red;padding-left:5px;}
+@media screen and (max-width:780px){
+	#usersML tr,#usersBL tr{display:block;margin-bottom:10px;}
+	#usersML td:nth-child(2),#usersBL td:nth-child(2){display:block;text-align:left;width:100%;}
+}

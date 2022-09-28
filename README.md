@@ -31,6 +31,7 @@ Login with Ajax and PHP session.
 
 ### Versions ###
 
+* 1.3.1 - 28/09/2022 : Responsive display
 * 1.3 - 27/12/2017 : W3.css compatibility
 * 1.2.3 - 15/03/2017 : Fix issue when unknow lang
 * 1.2.2 - 11/03/2017 : Use PHPMailer if Newsletter plugin exists - Add Salt in crypt() method
