@@ -18,7 +18,7 @@ if(file_exists('data/_sdata-'.$sdata.'/users.json'))
 	$a1 = '<div class="'.(isset($Uw3['dropdown']['w3-dropdown-click'])?$Uw3['dropdown']['w3-dropdown-click']:'w3-dropdown-click').' usersSession" id="usersSession" style="z-index:3">
 	<button class="'.(isset($Uw3['dropdown']['w3-button'])?$Uw3['dropdown']['w3-button']:'w3-button').'" id="usersOff" onClick="f_usersClic(0);">'.T_("Login").'</button>
 	<button class="'.(isset($Uw3['dropdown']['w3-button'])?$Uw3['dropdown']['w3-button']:'w3-button').' w3-hide" id="usersOn" onClick="f_usersClic(1);">'.T_("Hello").'&nbsp;<span id="usersHello"></span>&nbsp;&nbsp;<span style="font-size:120%;">&equiv;</span></button>
-	<div id="usersBox" class="'.(isset($Uw3['dropdown']['w3-dropdown-content'])?$Uw3['dropdown']['w3-dropdown-content']:'w3-dropdown-content').' '.(isset($Uw3['card']['w3-card'])?$Uw3['card']['w3-card']:'w3-card').' usersBox w3-hide" style="width:214px;'.$align.':0;'.($color?'background-color:'.$color.';':'').'">
+	<div id="usersBox" class="'.(isset($Uw3['dropdown']['w3-dropdown-content'])?$Uw3['dropdown']['w3-dropdown-content']:'w3-dropdown-content').' '.((isset($Uw3['card']['w3-card'])&&empty($a['c']))?$Uw3['card']['w3-card']:'w3-card').' usersBox w3-hide" style="width:214px;'.$align.':0;'.($color?'background-color:'.$color.';':'').'">
 		<div class="w3-container">
 			<div class="w3-panel w3-hide usersAlert" id="usersAlert"></div>
 			<div id="usersBl" class="w3-hide">

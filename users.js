@@ -3,84 +3,113 @@
 // Plugin Users
 //
 function f_saveConfig_users(){
-	jQuery(document).ready(function(){
-		jQuery.post('uno/plugins/users/users.php',{
-			'action':'saveConfig','unox':Unox,
-			'g':document.getElementById("usersLang").options[document.getElementById("usersLang").selectedIndex].value,
-			'i':document.getElementById("usersInt").options[document.getElementById("usersInt").selectedIndex].value,
-			'a':document.getElementById("usersAli").options[document.getElementById("usersAli").selectedIndex].value,
-			'c':document.getElementById("usersCol").value
-			},function(r){f_alert(r);}
-		);
-	});
+	let x=new FormData();
+	x.set('action','saveConfig');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	x.set('g',document.getElementById("usersLang").options[document.getElementById("usersLang").selectedIndex].value);
+	x.set('i',document.getElementById("usersInt").options[document.getElementById("usersInt").selectedIndex].value);
+	x.set('a',document.getElementById("usersAli").options[document.getElementById("usersAli").selectedIndex].value);
+	x.set('c',document.getElementById("usersCol").value);
+	fetch('uno/plugins/users/users.php',{method:'post',body:x})
+	.then(r=>r.text())
+	.then(r=>f_alert(r));
 }
 function f_save_users(){
-	jQuery(document).ready(function(){
-		jQuery.post('uno/plugins/users/users.php',{
-			'action':'saveUser','unox':Unox,
-			'n':document.getElementById('usersEditN').value,
-			'e':document.getElementById('usersEditE').value,
-			'p':document.getElementById('usersEditP').value
-			},function(r){f_alert(r);document.getElementById('usersEdit').style.display="none";f_load_users();}
-		);
+	let x=new FormData();
+	x.set('action','saveUser');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	x.set('n',document.getElementById('usersEditN').value);
+	x.set('e',document.getElementById('usersEditE').value);
+	x.set('p',document.getElementById('usersEditP').value);
+	fetch('uno/plugins/users/users.php',{method:'post',body:x})
+	.then(r=>r.text())
+	.then(function(r){
+		f_alert(r);
+		document.getElementById('usersEdit').style.display="none";
+		f_load_users();
 	});
 }
 function f_load_users(){
-	jQuery(document).ready(function(){
-		jQuery.ajax({type:'POST',url:'uno/plugins/users/users.php',data:{'action':'load','unox':Unox},dataType:'json',async:true,success:function(r){
-			if(r.i){
-				t=document.getElementById("usersInt");
-				to=t.options;
-				for(v=0;v<to.length;v++){if(to[v].value==r.i){to[v].selected=true;v=to.length;}}
+	let x=new FormData();
+	x.set('action','load');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	fetch('uno/plugins/users/users.php?r='+Math.random(),{method:'post',body:x})
+	.then(r=>r.json())
+	.then(function(r){
+		if(r.i){
+			t=document.getElementById("usersInt");
+			to=t.options;
+			for(v=0;v<to.length;v++){if(to[v].value==r.i){to[v].selected=true;v=to.length;}}
+		}
+		if(r.a){
+			t=document.getElementById("usersAli");
+			to=t.options;
+			for(v=0;v<to.length;v++){if(to[v].value==r.a){to[v].selected=true;v=to.length;}}
+		}
+		if(r.c!=undefined)document.getElementById('usersCol').value=r.c;
+		if(r.user){
+			t=document.createElement('table');
+			for(let k in r.user){
+				let v=r.user[k];
+				d=f_timeConvert(v.s);
+				tr=document.createElement('tr');
+				td=document.createElement('td');td.innerHTML=v.n;td.onclick=function(){f_psw_users(v.n,this.parentElement)};tr.appendChild(td); // name
+				td=document.createElement('td');td.innerHTML=v.e;tr.appendChild(td); // mail
+				td=document.createElement('td');td.innerHTML=d;tr.appendChild(td); // date
+				td=document.createElement('td');td.onclick=function(){f_bl_users(v.n,1)};td.className='jail';td.title='Black List';tr.appendChild(td);
+				td=document.createElement('td');td.onclick=function(){f_del_users(v.n)};td.className='del';tr.appendChild(td);
+				t.appendChild(tr);
 			}
-			if(r.a){
-				t=document.getElementById("usersAli");
-				to=t.options;
-				for(v=0;v<to.length;v++){if(to[v].value==r.a){to[v].selected=true;v=to.length;}}
+			document.getElementById("usersML").innerHTML='';
+			document.getElementById('usersML').appendChild(t);
+		}
+		if(r.black){
+			t=document.createElement('table');
+			for(let k in r.black){
+				let v=r.black[k];
+				d=f_timeConvert(v.s);
+				tr=document.createElement('tr');
+				td=document.createElement('td');td.innerHTML=v.n;tr.appendChild(td); // name
+				td=document.createElement('td');td.innerHTML=v.e;tr.appendChild(td); // mail
+				td=document.createElement('td');td.innerHTML=d;tr.appendChild(td); // date
+				td=document.createElement('td');td.onclick=function(){f_bl_users(v.n,0)};td.className='free';td.title='Free';tr.appendChild(td);
+				td=document.createElement('td');td.onclick=function(){f_del_users(v.n)};td.className='del';tr.appendChild(td);
+				t.appendChild(tr);
 			}
-			if(r.c!=undefined)document.getElementById('usersCol').value=r.c;
-			if(r.user){
-				t=document.createElement('table');
-				jQuery.each(r.user,function(k,v){
-					d=f_timeConvert(v.s);
-					tr=document.createElement('tr');
-					td=document.createElement('td');td.innerHTML=v.n;td.onclick=function(){f_psw_users(v.n,this.parentElement)};tr.appendChild(td); // name
-					td=document.createElement('td');td.innerHTML=v.e;tr.appendChild(td); // mail
-					td=document.createElement('td');td.innerHTML=d;tr.appendChild(td); // date
-					td=document.createElement('td');td.onclick=function(){f_bl_users(v.n,1)};td.className='jail';td.title='Black List';tr.appendChild(td);
-					td=document.createElement('td');td.onclick=function(){f_del_users(v.n)};td.className='del';tr.appendChild(td);
-					t.appendChild(tr);
-				});
-				jQuery('#usersML').empty();
-				document.getElementById('usersML').appendChild(t);
-			}
-			if(r.black){
-				t=document.createElement('table');
-				jQuery.each(r.black,function(k,v){
-					d=f_timeConvert(v.s);
-					tr=document.createElement('tr');
-					td=document.createElement('td');td.innerHTML=v.n;tr.appendChild(td); // name
-					td=document.createElement('td');td.innerHTML=v.e;tr.appendChild(td); // mail
-					td=document.createElement('td');td.innerHTML=d;tr.appendChild(td); // date
-					td=document.createElement('td');td.onclick=function(){f_bl_users(v.n,0)};td.className='free';td.title='Free';tr.appendChild(td);
-					td=document.createElement('td');td.onclick=function(){f_del_users(v.n)};td.className='del';tr.appendChild(td);
-					t.appendChild(tr);
-				});
-				jQuery('#usersBL').empty();
-				document.getElementById('usersBL').appendChild(t);
-			}
-		jQuery('#usersConfig .color').colorPicker();
-		}});
+			document.getElementById("usersBL").innerHTML='';
+			document.getElementById('usersBL').appendChild(t);
+		}
+		colorPick("#usersConfig .color");
 	});
 }
 function f_del_users(l){
-	jQuery(document).ready(function(){
-		jQuery.post('uno/plugins/users/users.php',{'action':'del','unox':Unox,'del':l},function(r){f_alert(r);f_load_users();});
+	let x=new FormData();
+	x.set('action','del');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	x.set('del',l);
+	fetch('uno/plugins/users/users.php',{method:'post',body:x})
+	.then(r=>r.text())
+	.then(function(r){
+		f_alert(r);
+		f_load_users();
 	});
 }
 function f_bl_users(l,m){
-	jQuery(document).ready(function(){
-		jQuery.post('uno/plugins/users/users.php',{'action':'black','unox':Unox,'black':l,'mod':m},function(r){f_alert(r);f_load_users();});
+	let x=new FormData();
+	x.set('action','black');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	x.set('black',l);
+	x.set('mod',m);
+	fetch('uno/plugins/users/users.php',{method:'post',body:x})
+	.then(r=>r.text())
+	.then(function(r){
+		f_alert(r);
+		f_load_users();
 	});
 }
 function f_black_users(){
@@ -118,27 +147,48 @@ function f_psw_users(f,g){
 	var a=document.createElement('div'),b=document.createElement('input');
 	b.id='chpsw';b.type='text';b.placeholder='pass';a.appendChild(b);
 	b=document.createElement('button');b.innerHTML='save';
-	b.onclick=function(){jQuery.post('uno/plugins/users/users.php',{'action':'psw','unox':Unox,'name':f,'psw':document.getElementById('chpsw').value},function(r){
-		f_alert(r);jQuery('#chpsw').parent().remove();
-	});}
+	b.onclick=function(){
+		let x=new FormData();
+		x.set('action','psw');
+		x.set('unox',Unox);
+		x.set('ubusy',Ubusy);
+		x.set('name',f);
+		x.set('psw',document.getElementById('chpsw').value);
+		fetch('uno/plugins/users/users.php',{method:'post',body:x})
+		.then(r=>r.text())
+		.then(function(r){
+			f_alert(r);
+			document.getElementById('chpsw').parentElement.remove();
+		});
+	}
 	a.appendChild(b);g.parentElement.insertBefore(a,g);
 }
 function f_checkN(f){
-	jQuery(document).ready(function(){
-		jQuery.post('uno/plugins/users/users.php',{'action':'checkN','unox':Unox,'name':f},function(r){
-			document.getElementById('checkN').innerHTML=r;
-			if(r.length>1)jQuery('#usersSave').hide();
-			else jQuery('#usersSave').show();
-		});
+	let x=new FormData();
+	x.set('action','checkN');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	x.set('name',f);
+	fetch('uno/plugins/users/users.php',{method:'post',body:x})
+	.then(r=>r.text())
+	.then(function(r){
+		document.getElementById('checkN').innerHTML=r;
+		if(r.length>1)document.getElementById('usersSave').style.display='none';
+		else document.getElementById('usersSave').style.display='';
 	});
 }
 function f_checkE(f){
-	jQuery(document).ready(function(){
-		jQuery.post('uno/plugins/users/users.php',{'action':'checkE','unox':Unox,'mail':f},function(r){
-			document.getElementById('checkE').innerHTML=r;
-			if(r.length>1)jQuery('#usersSave').hide();
-			else jQuery('#usersSave').show();
-		});
+	let x=new FormData();
+	x.set('action','checkE');
+	x.set('unox',Unox);
+	x.set('ubusy',Ubusy);
+	x.set('mail',f);
+	fetch('uno/plugins/users/users.php',{method:'post',body:x})
+	.then(r=>r.text())
+	.then(function(r){
+		document.getElementById('checkE').innerHTML=r;
+		if(r.length>1)document.getElementById('usersSave').style.display='none';
+		else document.getElementById('usersSave').style.display='';
 	});
 }
 function f_timeConvert(Timestamp){
@@ -154,7 +204,7 @@ function f_timeConvert(Timestamp){
 }
 function f_del_usersColor(f){
 	var g=f.parentNode.firstChild;
-	jQuery(g).parent().empty().append('<input type="text" class="input color" name="usersCol" id="usersCol" style="width:100px;" /><span class="del" onclick="f_del_usersColor(this);"></span>');
+	document.getElementById(g).parentElement.innerHTML='<input type="text" class="input color" name="usersCol" id="usersCol" style="width:100px;" /><span class="del" onclick="f_del_usersColor(this);"></span>';
 }
 //
 f_load_users();

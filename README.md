@@ -31,6 +31,9 @@ Login with Ajax and PHP session.
 
 ### Versions ###
 
+* 1.4 - 27/09/2024 :
+	* Send email via SMTP if Newsletter plugin is SMTP
+	* ES6 - JQuery free
 * 1.3.1 - 28/09/2022 : Responsive display
 * 1.3 - 27/12/2017 : W3.css compatibility
 * 1.2.3 - 15/03/2017 : Fix issue when unknow lang

@@ -1,17 +1,14 @@
 <?php
 session_start(); 
-if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])!='xmlhttprequest') {sleep(2);exit;} // ajax request
 if(!isset($_POST['unox']) || $_POST['unox']!=$_SESSION['unox']) {sleep(2);exit;} // appel depuis uno.php
 ?>
 <?php
 include('../../config.php');
 include('lang/lang.php');
-$q = file_get_contents('../../data/busy.json'); $a = json_decode($q,true); $Ubusy = $a['nom'];
+$busy = (isset($_POST['ubusy'])?preg_replace("/[^A-Za-z0-9-_]/",'',$_POST['ubusy']):'index');
 // ********************* actions *************************************************************************
-if (isset($_POST['action']))
-	{
-	switch ($_POST['action'])
-		{
+if(isset($_POST['action'])) {
+	switch ($_POST['action']) {
 		// ********************************************************************************************
 		case 'plugin': ?>
 		<link rel="stylesheet" type="text/css" media="screen" href="uno/plugins/users/users.css" />
@@ -112,11 +109,10 @@ if (isset($_POST['action']))
 		<?php break;
 		// ********************************************************************************************
 		case 'load':
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
-			{
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json')) {
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 			echo stripslashes($q);
-			}
+		}
 		else echo 0;
 		exit;
 		break;
@@ -124,101 +120,89 @@ if (isset($_POST['action']))
 		case 'psw':
 		$p = $_POST['psw']; $b = 0;
 		$p = crypt($p,$Ukey);
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && !empty($p))
-			{
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && !empty($p)) {
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 			$a = json_decode($q,true);
-			foreach($a['user'] as $k=>$r)
-				{
-				if($r['n']==$_POST['name'])
-					{
+			foreach($a['user'] as $k=>$r) {
+				if($r['n']==$_POST['name']) {
 					$a['user'][$k]['p'] = $p;
 					$b = 1;
 					break;
-					}
-				}
-			if($b && file_put_contents('../../data/_sdata-'.$sdata.'/users.json', json_encode($a)))
-				{
-				echo T_("Password changed");
-				exit;
 				}
 			}
+			if($b && file_put_contents('../../data/_sdata-'.$sdata.'/users.json', json_encode($a))) {
+				echo T_("Password changed");
+				exit;
+			}
+		}
 		if(!$b) echo '!'.T_("Error");
 		break;
 		// ********************************************************************************************
 		case 'del':
 		$l = $_POST['del'];
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l)
-			{
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l) {
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 			$a = json_decode($q,true);
 			$b = 0;
-			if(isset($a['user']))
-				{
-				foreach($a['user'] as $k=>$v) { if($v['n']==$l) {unset($a['user'][$k]); $b = 1; }}
+			if(isset($a['user'])) {
+				foreach($a['user'] as $k=>$v) {
+					if($v['n']==$l) {
+						unset($a['user'][$k]);
+						$b = 1;
+					}
+				}
 				if($b==0) echo '!'.T_('Error');
-				else
-					{
+				else {
 					$out = json_encode($a);
 					if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('User deleted');
 					else echo '!'.T_('Undeletable');
-					}
 				}
 			}
+		}
 		else echo '!'.T_('No data');
 		break;
 		// ********************************************************************************************
 		case 'black':
 		$l = $_POST['black'];
 		$m = $_POST['mod'];
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l)
-			{
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l) {
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 			$a = json_decode($q,true);
 			$b = 0;
-			if($m==1 && isset($a['user']))
-				{
-				foreach($a['user'] as $k=>$v)
-					{
-					if($v['n']==$l)
-						{
+			if($m==1 && isset($a['user'])) {
+				foreach($a['user'] as $k=>$v) {
+					if($v['n']==$l) {
 						$a['black'][$k] = $a['user'][$k];
 						unset($a['user'][$k]);
 						$b = 1;
-						}
 					}
 				}
-			if(!$m && isset($a['black']))
-				{
-				foreach($a['black'] as $k=>$v)
-					{
-					if($v['n']==$l)
-						{
+			}
+			if(!$m && isset($a['black'])) {
+				foreach($a['black'] as $k=>$v) {
+					if($v['n']==$l) {
 						$a['user'][$k] = $a['black'][$k];
 						unset($a['black'][$k]);
 						$b = 1;
-						}
 					}
 				}
+			}
 			if($b==0) echo '!'.T_('Error');
-			else
-				{
+			else {
 				$out = json_encode($a);
 				if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('Done');
 				else echo '!'.T_('Error');
-				}
 			}
+		}
 		else echo '!'.T_('No data');
 		break;
 		// ********************************************************************************************
 		case 'saveConfig':
-		if(isset($_POST['i']) && isset($_POST['a']))
-			{
-			if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
-				{
+		if(isset($_POST['i']) && isset($_POST['a'])) {
+			if(file_exists('../../data/_sdata-'.$sdata.'/users.json')) {
 				$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 				$a = json_decode($q,true);
-				}
+			}
 			else $a = array();
 			$a['g'] = strip_tags($_POST['g']);
 			$a['i'] = strip_tags($_POST['i']);
@@ -226,67 +210,58 @@ if (isset($_POST['action']))
 			$a['c'] = strip_tags($_POST['c']);
 			$out = json_encode($a);
 			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('Saved');
-			}
+		}
 		else echo '!'.T_('Error');
 		break;
 		// ********************************************************************************************
 		case 'saveUser':
-		if(strip_tags($_POST['e']) && strip_tags($_POST['n']) && strip_tags($_POST['p']))
-			{
-			if(!filter_var(strip_tags($_POST['e']),FILTER_VALIDATE_EMAIL))
-				{
+		if(strip_tags($_POST['e']) && strip_tags($_POST['n']) && strip_tags($_POST['p'])) {
+			if(!filter_var(strip_tags($_POST['e']),FILTER_VALIDATE_EMAIL)) {
 				echo '!'.T_("Bad email format");
 				break;
-				}
-			if(file_exists('../../data/_sdata-'.$sdata.'/users.json'))
-				{
+			}
+			if(file_exists('../../data/_sdata-'.$sdata.'/users.json')) {
 				$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 				$a = json_decode($q,true);
-				}
+			}
 			else $a = array();
 			$a['user'][strip_tags($_POST['n'])] = array("e"=>strip_tags($_POST['e']), "n"=>strip_tags($_POST['n']), "p"=>crypt($_POST['p'],$Ukey), "s"=>time());
 			$out = json_encode($a);
 			if(file_put_contents('../../data/_sdata-'.$sdata.'/users.json', $out)) echo T_('User added');
-			}
+		}
 		else echo '!'.T_('Error');
 		break;
 		// ********************************************************************************************
 		case 'checkN':
 		$l = $_POST['name'];
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l)
-			{
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l) {
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 			$a = json_decode($q,true);
-			if(isset($a['user']))
-				{
-				foreach($a['user'] as $k=>$v)
-					{
+			if(isset($a['user'])) {
+				foreach($a['user'] as $k=>$v) {
 					if($v['n']==$l) { echo T_('Already exist'); die(); }
-					}
 				}
 			}
+		}
 		echo "";
 		break;
 		// ********************************************************************************************
 		case 'checkE':
 		$l = $_POST['mail'];
-		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l)
-			{
+		if(file_exists('../../data/_sdata-'.$sdata.'/users.json') && $l) {
 			$q = file_get_contents('../../data/_sdata-'.$sdata.'/users.json');
 			$a = json_decode($q,true);
-			if(isset($a['user']))
-				{
-				foreach($a['user'] as $k=>$v)
-					{
+			if(isset($a['user'])) {
+				foreach($a['user'] as $k=>$v) {
 					if($v['e']==$l) { echo T_('Already exist'); die(); }
-					}
 				}
 			}
+		}
 		echo "";
 		break;
 		// ********************************************************************************************
-		}
+	}
 	clearstatcache();
 	exit;
-	}
+}
 ?>
